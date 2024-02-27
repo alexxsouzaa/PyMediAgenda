@@ -612,6 +612,12 @@ if __name__ == '__main__':
                                           fg_color=self.blue,
                                           hover_color=self.dark_blue
                                           ).place(x=570, y=534)
-    
+        def janela_consulta(self):
+            self.janela_consulta = CTkToplevel(app, fg_color="#fff")
+            self.janela_consulta.title("Agendar Consulta")
+            self.janela_consulta.geometry("750x780+600+100")
+            self.janela_consulta.focus_force()
+            self.janela_consulta.grab_set()
+            
     Aplicação()
     app.mainloop()
