@@ -1,3 +1,5 @@
+"""
+
 from customtkinter import *
 from tkinter import *
 from tkinter import ttk
@@ -404,14 +406,14 @@ if __name__ == '__main__':
             self.bane_frame_paciente = CTkFrame(master=self.tb_cadastro_paciente,
                                     width= 610,
                                     height= 48,
-                                    fg_color=self.blue_light_1,
+                                    fg_color=self.blue_light_2,
                                     border_color=self.blue,
                                     border_width=3).place(x=16, y=430,)
             self.lb_aviso_paciente = CTkLabel(master=self.tb_cadastro_paciente,
                                     text="●  Atenção: Certifique-se de que todos os campos estão devidamente preenchidos antes de salvar.",
                                     text_color=self.black, 
                                     font=("Calibri", 14, "bold"),
-                                    fg_color=self.blue_light_1).place(x=24, y=440)
+                                    fg_color=self.blue_light_2).place(x=24, y=440)
             
             # Botões      
             ## Botão de Limpar
@@ -580,14 +582,14 @@ if __name__ == '__main__':
             self.bane_frame_medico = CTkFrame(master=self.tb_cadastro_medico,
                                     width= 610,
                                     height= 48,
-                                    fg_color=self.blue_light_1,
+                                    fg_color=self.blue_light_2,
                                     border_color=self.blue,
                                     border_width=3).place(x=16, y=350,)
             self.lb_aviso_medico = CTkLabel(master=self.tb_cadastro_medico,
                                     text="●  Atenção: Certifique-se de que todos os campos estão devidamente preenchidos antes de salvar.",
                                     text_color=self.black, 
                                     font=("Calibri", 14, "bold"),
-                                    fg_color=self.blue_light_1).place(x=24, y=360)
+                                    fg_color=self.blue_light_2).place(x=24, y=360)
             
             # Botões      
             ## Botão de Limpar
@@ -612,6 +614,15 @@ if __name__ == '__main__':
                                           fg_color=self.blue,
                                           hover_color=self.dark_blue
                                           ).place(x=570, y=534)
+        def janela_consulta(self):
+            self.janela_consulta = CTkToplevel(app, fg_color="#fff")
+            self.janela_consulta.title("Agendar Consulta")
+            self.janela_consulta.geometry("750x780+600+100")
+            self.janela_consulta.focus_force()
+            self.janela_consulta.grab_set()
     
     Aplicação()
     app.mainloop()
+    
+
+"""
