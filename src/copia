@@ -406,14 +406,14 @@ if __name__ == '__main__':
             self.bane_frame_paciente = CTkFrame(master=self.tb_cadastro_paciente,
                                     width= 610,
                                     height= 48,
-                                    fg_color=self.blue_light_2,
+                                    fg_color=self.blue_light_1,
                                     border_color=self.blue,
                                     border_width=3).place(x=16, y=430,)
             self.lb_aviso_paciente = CTkLabel(master=self.tb_cadastro_paciente,
                                     text="●  Atenção: Certifique-se de que todos os campos estão devidamente preenchidos antes de salvar.",
                                     text_color=self.black, 
                                     font=("Calibri", 14, "bold"),
-                                    fg_color=self.blue_light_2).place(x=24, y=440)
+                                    fg_color=self.blue_light_1).place(x=24, y=440)
             
             # Botões      
             ## Botão de Limpar
@@ -582,14 +582,14 @@ if __name__ == '__main__':
             self.bane_frame_medico = CTkFrame(master=self.tb_cadastro_medico,
                                     width= 610,
                                     height= 48,
-                                    fg_color=self.blue_light_2,
+                                    fg_color=self.blue_light_1,
                                     border_color=self.blue,
                                     border_width=3).place(x=16, y=350,)
             self.lb_aviso_medico = CTkLabel(master=self.tb_cadastro_medico,
                                     text="●  Atenção: Certifique-se de que todos os campos estão devidamente preenchidos antes de salvar.",
                                     text_color=self.black, 
                                     font=("Calibri", 14, "bold"),
-                                    fg_color=self.blue_light_2).place(x=24, y=360)
+                                    fg_color=self.blue_light_1).place(x=24, y=360)
             
             # Botões      
             ## Botão de Limpar
@@ -615,14 +615,186 @@ if __name__ == '__main__':
                                           hover_color=self.dark_blue
                                           ).place(x=570, y=534)
         def janela_consulta(self):
+            # Configuração da Janela
             self.janela_consulta = CTkToplevel(app, fg_color="#fff")
-            self.janela_consulta.title("Agendar Consulta")
-            self.janela_consulta.geometry("750x780+600+100")
+            self.janela_consulta.title("Agendamento de Consultas")
+            self.janela_consulta.geometry("1280x850+350+100")
+            self.janela_consulta.resizable(False, False)
             self.janela_consulta.focus_force()
             self.janela_consulta.grab_set()
-    
+            
+            # Frames da Janela
+            ## Banner
+            self.frame_bane_consulta = CTkFrame(self.janela_consulta,
+                                    fg_color=self.blue_light_2,
+                                    border_color=self.blue_light_1,
+                                    border_width=3,
+                                    width=1300,
+                                    height=135
+                                    ).place(x=-10, y=-36)
+            ## Titulo da janela
+            self.lb_titulo_consulta = CTkLabel(self.janela_consulta,
+                                            text="Agendamento de Consultas",
+                                            font=("Calibri", 40, "bold"),
+                                            text_color=self.black,
+                                            fg_color=self.blue_light_2).place(x=32, y=16)
+            ##subtitulo da janela
+            self.lb_titulo_consulta = CTkLabel(self.janela_consulta,
+                                            text="Os campos marcados com * são obrigatórios",
+                                            font=("Calibri", 16),
+                                            text_color=self.black,
+                                            fg_color=self.blue_light_2,
+                                            bg_color=self.blue_light_2).place(x=32, y=56)
+            
+            # TabView do Cadastro
+            # TabView
+            self.tb_consulta= CTkTabview(self.janela_consulta,
+                                          fg_color=self.blue_light_2,
+                                          corner_radius=8,
+                                          width=1260,
+                                          height=722,
+                                          border_color=self.blue_light_1,
+                                          border_width=4,
+                                          segmented_button_fg_color=self.blue_light_1,
+                                          segmented_button_selected_color=self.blue,
+                                          segmented_button_selected_hover_color=self.dark_blue,
+                                          anchor="nw")
+            self.tb_consulta.place(x=10, y=118)
+            ## Abas do TabView
+            self.tb_agendar_consulta = self.tb_consulta.add("Agendar Consulta")
+            self.tb_consultar_agendamento = self.tb_consulta.add("Consultar Agendamento")
+            
+            # Widgets do agendamento de consulta
+            self.lb_dados_paciente = CTkLabel(self.tb_agendar_consulta,
+                                              text='Dados do Paciente',
+                                              font=('Calibri', 18, 'bold'),
+                                              text_color=self.black).place(x=10, y=8)
+            # Frame dos dados do paciente
+            self.frame_dados_paciente = CTkFrame(self.tb_agendar_consulta,
+                                                 width=1224,
+                                                 height=200,
+                                                 fg_color=self.white,
+                                                 border_color=self.blue_light_1,
+                                                 border_width=3).place(x=10, y=40)
+            
+            # Labels e Entrys
+            ## Label e Entry CPF
+            self.lb_none_agendamento_paciente = CTkLabel(self.tb_agendar_consulta,
+                                             text="CPF",
+                                             font=("Calibri", 16, "bold"),
+                                             text_color=self.black,
+                                             fg_color=self.white).place(x=24, y=50)
+            self.entry_nome_agendamento_paciente = CTkEntry(self.tb_agendar_consulta,
+                                                width=150,
+                                                height=40,
+                                                border_width=2,
+                                                border_color=self.black,
+                                                fg_color=self.gray_light,
+                                                font=("Calibri", 16),
+                                                text_color=self.black)
+            self.entry_nome_agendamento_paciente.place(x=24, y=80)
+            
+            ## Label e Entry Nome
+            self.lb_none_agendamento_paciente = CTkLabel(self.tb_agendar_consulta,
+                                             text="Nome Completo do Paciente",
+                                             font=("Calibri", 16, "bold"),
+                                             text_color=self.black,
+                                             fg_color=self.white).place(x=198, y=50)
+            self.entry_nome_agendamento_paciente = CTkEntry(self.tb_agendar_consulta,
+                                                width=350,
+                                                height=40,
+                                                border_width=2,
+                                                border_color=self.black,
+                                                fg_color=self.gray_light,
+                                                font=("Calibri", 16),
+                                                text_color=self.black)
+            self.entry_nome_agendamento_paciente.place(x=198, y=80)
+            
+            ## Label e Entry Nascimento
+            self.lb_none_agendamento_paciente = CTkLabel(self.tb_agendar_consulta,
+                                             text="Data de Nasc.",
+                                             font=("Calibri", 16, "bold"),
+                                             text_color=self.black,
+                                             fg_color=self.white).place(x=576, y=50)
+            self.entry_nome_agendamento_paciente = CTkEntry(self.tb_agendar_consulta,
+                                                width=150,
+                                                height=40,
+                                                border_width=2,
+                                                border_color=self.black,
+                                                fg_color=self.gray_light,
+                                                font=("Calibri", 16),
+                                                text_color=self.black)
+            self.entry_nome_agendamento_paciente.place(x=576, y=80)
+            
+            # Gênero
+            self.lb_genero_agendamento_paciente = CTkLabel(self.tb_agendar_consulta,
+                                             text="Gênero",
+                                             font=("Calibri", 16, "bold"),
+                                             text_color=self.black,
+                                             fg_color=self.white).place(x=754, y=50)
+            genero = ['null', 'Masculino', 'Feminino']
+            self.cb_genero = CTkComboBox(self.tb_agendar_consulta,
+                                        width=150,
+                                        height=40,
+                                        font=("Calibri", 16),
+                                        dropdown_font=('Calibri', 16),
+                                        dropdown_text_color=self.black,
+                                        text_color=self.black,
+                                        border_width=2,
+                                        border_color=self.black,
+                                        fg_color=self.white,
+                                        button_hover_color=self.dark_blue,
+                                        button_color=self.blue,
+                                        dropdown_fg_color=self.white,
+                                        dropdown_hover_color=self.blue_light_2,
+                                        justify='left',
+                                        values=genero).place(x=754, y=80)
+            
+            ## Label e Entry Endereço
+            self.lb_none_agendamento_paciente = CTkLabel(self.tb_agendar_consulta,
+                                             text="Endereço",
+                                             font=("Calibri", 16, "bold"),
+                                             text_color=self.black,
+                                             fg_color=self.white).place(x=932, y=50)
+            self.entry_nome_agendamento_paciente = CTkEntry(self.tb_agendar_consulta,
+                                                width=288,
+                                                height=40,
+                                                border_width=2,
+                                                border_color=self.black,
+                                                fg_color=self.gray_light,
+                                                font=("Calibri", 16),
+                                                text_color=self.black)
+            self.entry_nome_agendamento_paciente.place(x=932, y=80)
+            
+        def janela_teste(self):
+            # Configuração da Janela
+            self.janela_teste = CTkToplevel(app, fg_color="#DAEDFF")
+            self.janela_teste.title("Agendar Consulta")
+            self.janela_teste.geometry("1280x850+350+100")
+            self.janela_teste.resizable(False, False)
+            self.janela_teste.focus_force()
+            self.janela_teste.grab_set()
+            
+            teste = ['null', 'ola', 'teste']
+            self.cb_teste = CTkComboBox(self.frame_teste_test,
+                                        width=300,
+                                        height=40,
+                                        font=("Calibri", 16),
+                                        dropdown_font=('Calibri', 16),
+                                        dropdown_text_color=self.black,
+                                        text_color=self.black,
+                                        border_width=2,
+                                        border_color=self.black,
+                                        fg_color=self.white,
+                                        button_hover_color=self.dark_blue,
+                                        button_color=self.blue,
+                                        dropdown_fg_color=self.white,
+                                        dropdown_hover_color=self.blue_light_2,
+                                        justify='left',
+                                        values=teste).place(x=10, y=10)
+              
+            
     Aplicação()
     app.mainloop()
-    
 
 """
