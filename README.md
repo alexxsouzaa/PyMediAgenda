@@ -35,3 +35,10 @@ eficiente para clínicas e consultórios, permitindo o gerenciamento fácil e or
 * Python
 * SQLite (ou outro banco de dados à sua escolha)
 * Tkinter e CustomTkinter (para a interface gráfica)
+
+## Vídeo demonstrativo
+
+https://github.com/alexxsouzaa/PyMediAgenda/assets/132787362/28f13b34-00fc-431d-80fd-83cbfea13f86
+
+> Demonstração da tela de agendamento
+
