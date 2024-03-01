@@ -738,7 +738,7 @@ class CadastroWindow(CTkToplevel):
                              VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (self.cpf_paciente, self.nome_paciente, self.data_nascimento_paciente, self.cep_paciente, self.endereco_paciente, self.numero_paciente, self.bairro_paciente, self.cidade_paciente, self.estado_paciente, self.email_paciente, self.celular_paciente, self.telefone_paciente, self.observacao_paciente))
         self.conn.commit()
         self.desconecta_bd()
-        self.limpar_cadastro_medico()
+        self.limpar_cadastro_paciente()
 
 class ConsultaWindow(CTkToplevel):
     def __init__(self, parent):
