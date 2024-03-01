@@ -137,6 +137,7 @@ class CadastroWindow(CTkToplevel):
         self.resizable(False, False)
 
         self.monta_tabela_medicos()
+        self.monta_tabela_pacientes()
 
         # Frames da Janela
         self.frames_cadastro()
@@ -433,7 +434,8 @@ class CadastroWindow(CTkToplevel):
                                             width=126,
                                             height=48,
                                             fg_color=self.blue,
-                                            hover_color=self.dark_blue
+                                            hover_color=self.dark_blue,
+                                            command=self.add_dados_pacientes
                                             ).place(x=570, y=534)
 
     def widget_cadastro_medicos(self):
@@ -654,6 +656,30 @@ class CadastroWindow(CTkToplevel):
         self.conn.close()
         print('Desconectado do banco de dados.')
 
+    def monta_tabela_pacientes(self):
+        self.conecta_bd()
+        self.cursor.execute(""" 
+                            CREATE TABLE IF NOT EXISTS pacientes (
+                                cod INTEGER PRIMARY KEY,
+                                cpf TEXT NOT NULL,
+                                nome TEXT NOT NULL,
+                                data_nascimento DATE,
+                                cep TEXT,
+                                endereco TEXT,
+                                numero INTEGER,
+                                bairro TEXT,
+                                cidade TEXT,
+                                estado TEXT,
+                                email TEXT,
+                                celular TEXT NOT NULL,
+                                telefone TEXT,
+                                observacao TEXT
+                            );
+                        """)
+        print('Tabela de Pacintes montada.')
+        self.conn.commit()
+        self.desconecta_bd()
+
     def monta_tabela_medicos(self):
         self.conecta_bd()
         self.cursor.execute(""" 
@@ -666,7 +692,7 @@ class CadastroWindow(CTkToplevel):
                                 especialidade2 TEXT,
                                 email TEXT,
                                 celular TEXT NOT NULL,
-                                telefone NOT NULL,
+                                telefone TEXT,
                                 observacao TEXT
                             );
                         """)
@@ -692,6 +718,27 @@ class CadastroWindow(CTkToplevel):
         self.desconecta_bd()
         self.limpar_cadastro_medico()
 
+    def add_dados_pacientes(self):
+        self.nome_paciente = self.entry_nome_cadastro_paciente.get()
+        self.cpf_paciente = self.entry_cpf_cadastro_paciente.get()
+        self.data_nascimento_paciente = self.entry_nascimento_cadastro_paciente.get()
+        self.cep_paciente = self.entry_cep_cadastro_paciente.get()
+        self.endereco_paciente = self.entry_endereco_cadastro_paciente.get()
+        self.numero_paciente = self.entry_numero_cadastro_paciente.get()
+        self.bairro_paciente = self.entry_bairro_cadastro_paciente.get()
+        self.cidade_paciente = self.entry_cidade_cadastro_paciente.get()
+        self.estado_paciente = self.entry_estado_cadastro_paciente.get()
+        self.email_paciente = self.entry_email_cadastro_paciente.get()
+        self.telefone_paciente = self.entry_telefone_cadastro_paciente.get()
+        self.celular_paciente = self.entry_celular_cadastro_paciente.get()
+        self.observacao_paciente = self.entry_obervacao_cadastro_paciente.get()
+
+        self.conecta_bd()
+        self.cursor.execute(""" INSERT INTO pacientes (cpf, nome, data_nascimento, cep, endereco, numero, bairro, cidade, estado, email, celular, telefone, observacao)
+                             VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (self.cpf_paciente, self.nome_paciente, self.data_nascimento_paciente, self.cep_paciente, self.endereco_paciente, self.numero_paciente, self.bairro_paciente, self.cidade_paciente, self.estado_paciente, self.email_paciente, self.celular_paciente, self.telefone_paciente, self.observacao_paciente))
+        self.conn.commit()
+        self.desconecta_bd()
+        self.limpar_cadastro_medico()
 
 class ConsultaWindow(CTkToplevel):
     def __init__(self, parent):
