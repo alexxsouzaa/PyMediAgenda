@@ -7,10 +7,20 @@
 Bem-vindo ao repositório do projeto PyMediAgenda, um sistema de gestão de agendamento e cadastro de consultas médicas desenvolvido em Python. O MediAgenda oferece uma solução
 eficiente para clínicas e consultórios, permitindo o gerenciamento fácil e organizado de pacientes, médicos e consultas.
 
+</br>
+</br>
+
 <div align="center">
   <img src="https://github.com/alexxsouzaa/PyMediAgenda/assets/132787362/32d36a35-bb1b-4586-aed0-af56cdb4262e" alt="PyMediAgenda">
 </div>
 
+> Tela inicial
+
+<div align="center">
+  <img src="https://github.com/alexxsouzaa/PyMediAgenda/assets/132787362/7b537de2-30b3-489a-a1c0-d47d4246d6fb" alt="Tela de Agendamento">
+</div>
+
+> Tela de agendamento
 
 ## Recursos Principais:
 
@@ -24,5 +34,4 @@ eficiente para clínicas e consultórios, permitindo o gerenciamento fácil e or
 ## Tecnologias Utilizadas:
 * Python
 * SQLite (ou outro banco de dados à sua escolha)
-* Tkinter e CustomTkinter (para a interface gráfica, se implementada)
-* Boas práticas de programação, modularização e tratamento de exceções.
+* Tkinter e CustomTkinter (para a interface gráfica)
