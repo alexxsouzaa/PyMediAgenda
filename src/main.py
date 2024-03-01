@@ -136,6 +136,8 @@ class CadastroWindow(CTkToplevel):
         self.geometry("750x780+600+100")
         self.resizable(False, False)
 
+        self.monta_tabela_medicos()
+
         # Frames da Janela
         self.frames_cadastro()
         # TabView do Cadastro
@@ -192,12 +194,12 @@ class CadastroWindow(CTkToplevel):
         # Lab e Entry de Nome
         self.lb_none_cadastro_paciente = CTkLabel(self.tb_cadastro_paciente,
                                                   text="Nome do Paciente*",
-                                                  font=("Calibri", 16, "bold"),
+                                                  font=("Calibri", 16),
                                                   text_color=self.black).place(x=16, y=10)
         self.entry_nome_cadastro_paciente = CTkEntry(self.tb_cadastro_paciente,
                                                      width=316,
                                                      height=40,
-                                                     border_width=2,
+                                                     border_width=1,
                                                      border_color=self.black,
                                                      fg_color=self.gray_light,
                                                      font=("Calibri", 16),
@@ -207,12 +209,12 @@ class CadastroWindow(CTkToplevel):
         # Lab e Entry de CPF
         self.lb_cpf_cadastro_paciente = CTkLabel(self.tb_cadastro_paciente,
                                                  text="CPF*",
-                                                 font=("Calibri", 16, "bold"),
+                                                 font=("Calibri", 16),
                                                  text_color=self.black).place(x=348, y=10)
         self.entry_cpf_cadastro_paciente = CTkEntry(self.tb_cadastro_paciente,
                                                     width=184,
                                                     height=40,
-                                                    border_width=2,
+                                                    border_width=1,
                                                     border_color=self.black,
                                                     fg_color=self.gray_light,
                                                     font=("Calibri", 16),
@@ -223,12 +225,12 @@ class CadastroWindow(CTkToplevel):
         self.lb_nascimento_cadastro_paciente = CTkLabel(self.tb_cadastro_paciente,
                                                         text="Data de Nasc.*",
                                                         font=(
-                                                            "Calibri", 16, "bold"),
+                                                            "Calibri", 16),
                                                         text_color=self.black).place(x=548, y=10)
         self.entry_nascimento_cadastro_paciente = CTkEntry(self.tb_cadastro_paciente,
                                                            width=150,
                                                            height=40,
-                                                           border_width=2,
+                                                           border_width=1,
                                                            border_color=self.black,
                                                            fg_color=self.gray_light,
                                                            font=(
@@ -239,12 +241,12 @@ class CadastroWindow(CTkToplevel):
         # Lab e Entry de Cep
         self.lb_cep_cadastro_paciente = CTkLabel(self.tb_cadastro_paciente,
                                                  text="CEP",
-                                                 font=("Calibri", 16, "bold"),
+                                                 font=("Calibri", 16),
                                                  text_color=self.black).place(x=16, y=90)
         self.entry_cep_cadastro_paciente = CTkEntry(self.tb_cadastro_paciente,
                                                     width=154,
                                                     height=40,
-                                                    border_width=2,
+                                                    border_width=1,
                                                     border_color=self.black,
                                                     fg_color=self.gray_light,
                                                     font=("Calibri", 16),
@@ -255,12 +257,12 @@ class CadastroWindow(CTkToplevel):
         self.lb_endereco_cadastro_paciente = CTkLabel(self.tb_cadastro_paciente,
                                                       text="Endereço",
                                                       font=(
-                                                          "Calibri", 16, "bold"),
+                                                          "Calibri", 16),
                                                       text_color=self.black).place(x=187, y=90)
         self.entry_endereco_cadastro_paciente = CTkEntry(self.tb_cadastro_paciente,
                                                          width=344,
                                                          height=40,
-                                                         border_width=2,
+                                                         border_width=1,
                                                          border_color=self.black,
                                                          fg_color=self.gray_light,
                                                          font=("Calibri", 16),
@@ -271,12 +273,12 @@ class CadastroWindow(CTkToplevel):
         self.lb_numero_cadastro_paciente = CTkLabel(self.tb_cadastro_paciente,
                                                     text="Número",
                                                     font=(
-                                                        "Calibri", 16, "bold"),
+                                                        "Calibri", 16),
                                                     text_color=self.black).place(x=548, y=90)
         self.entry_numero_cadastro_paciente = CTkEntry(self.tb_cadastro_paciente,
                                                        width=150,
                                                        height=40,
-                                                       border_width=2,
+                                                       border_width=1,
                                                        border_color=self.black,
                                                        fg_color=self.gray_light,
                                                        font=("Calibri", 16),
@@ -287,12 +289,12 @@ class CadastroWindow(CTkToplevel):
         self.lb_bairro_cadastro_paciente = CTkLabel(self.tb_cadastro_paciente,
                                                     text="Bairro",
                                                     font=(
-                                                        "Calibri", 16, "bold"),
+                                                        "Calibri", 16),
                                                     text_color=self.black).place(x=16, y=170)
         self.entry_bairro_cadastro_paciente = CTkEntry(self.tb_cadastro_paciente,
                                                        width=234,
                                                        height=40,
-                                                       border_width=2,
+                                                       border_width=1,
                                                        border_color=self.black,
                                                        fg_color=self.gray_light,
                                                        font=("Calibri", 16),
@@ -303,12 +305,12 @@ class CadastroWindow(CTkToplevel):
         self.lb_cidade_cadastro_paciente = CTkLabel(self.tb_cadastro_paciente,
                                                     text="Cidade",
                                                     font=(
-                                                        "Calibri", 16, "bold"),
+                                                        "Calibri", 16),
                                                     text_color=self.black).place(x=268, y=170)
         self.entry_cidade_cadastro_paciente = CTkEntry(self.tb_cadastro_paciente,
                                                        width=212,
                                                        height=40,
-                                                       border_width=2,
+                                                       border_width=1,
                                                        border_color=self.black,
                                                        fg_color=self.gray_light,
                                                        font=("Calibri", 16),
@@ -319,12 +321,12 @@ class CadastroWindow(CTkToplevel):
         self.lb_estado_cadastro_paciente = CTkLabel(self.tb_cadastro_paciente,
                                                     text="Estado",
                                                     font=(
-                                                        "Calibri", 16, "bold"),
+                                                        "Calibri", 16),
                                                     text_color=self.black).place(x=498, y=170)
         self.entry_estado_cadastro_paciente = CTkEntry(self.tb_cadastro_paciente,
                                                        width=200,
                                                        height=40,
-                                                       border_width=2,
+                                                       border_width=1,
                                                        border_color=self.black,
                                                        fg_color=self.gray_light,
                                                        font=("Calibri", 16),
@@ -335,12 +337,12 @@ class CadastroWindow(CTkToplevel):
         self.lb_email_cadastro_paciente = CTkLabel(self.tb_cadastro_paciente,
                                                    text="E-Mail",
                                                    font=(
-                                                       "Calibri", 16, "bold"),
+                                                       "Calibri", 16),
                                                    text_color=self.black).place(x=16, y=250)
         self.entry_email_cadastro_paciente = CTkEntry(self.tb_cadastro_paciente,
                                                       width=282,
                                                       height=40,
-                                                      border_width=2,
+                                                      border_width=1,
                                                       border_color=self.black,
                                                       fg_color=self.gray_light,
                                                       font=("Calibri", 16),
@@ -351,12 +353,12 @@ class CadastroWindow(CTkToplevel):
         self.lb_telefone_cadastro_paciente = CTkLabel(self.tb_cadastro_paciente,
                                                       text="Telefone",
                                                       font=(
-                                                          "Calibri", 16, "bold"),
+                                                          "Calibri", 16),
                                                       text_color=self.black).place(x=317, y=250)
         self.entry_telefone_cadastro_paciente = CTkEntry(self.tb_cadastro_paciente,
                                                          width=182,
                                                          height=40,
-                                                         border_width=2,
+                                                         border_width=1,
                                                          border_color=self.black,
                                                          fg_color=self.gray_light,
                                                          font=("Calibri", 16),
@@ -367,12 +369,12 @@ class CadastroWindow(CTkToplevel):
         self.lb_celular_cadastro_paciente = CTkLabel(self.tb_cadastro_paciente,
                                                      text="Celular*",
                                                      font=(
-                                                         "Calibri", 16, "bold"),
+                                                         "Calibri", 16),
                                                      text_color=self.black).place(x=518, y=250)
         self.entry_celular_cadastro_paciente = CTkEntry(self.tb_cadastro_paciente,
                                                         width=180,
                                                         height=40,
-                                                        border_width=2,
+                                                        border_width=1,
                                                         border_color=self.black,
                                                         fg_color=self.gray_light,
                                                         font=("Calibri", 16),
@@ -383,12 +385,12 @@ class CadastroWindow(CTkToplevel):
         self.lb_obervacao_cadastro_paciente = CTkLabel(self.tb_cadastro_paciente,
                                                        text="Obervação",
                                                        font=(
-                                                           "Calibri", 16, "bold"),
+                                                           "Calibri", 16),
                                                        text_color=self.black).place(x=16, y=330)
         self.entry_obervacao_cadastro_paciente = CTkEntry(self.tb_cadastro_paciente,
                                                           width=682,
                                                           height=40,
-                                                          border_width=2,
+                                                          border_width=1,
                                                           border_color=self.black,
                                                           fg_color=self.gray_light,
                                                           font=("Calibri", 16),
@@ -417,8 +419,8 @@ class CadastroWindow(CTkToplevel):
                                             font=("Calibri", 16, "bold"),
                                             width=126,
                                             height=48,
-                                            fg_color=self.blue_light_2,
-                                            hover_color=self.blue_light_1,
+                                            fg_color=self.white,
+                                            hover_color=self.blue_light_2,
                                             border_width=2,
                                             border_color=self.blue,
                                             command=self.limpar_cadastro_paciente)
@@ -439,12 +441,12 @@ class CadastroWindow(CTkToplevel):
         # Lab e Entry de Nome
         self.lb_none_cadastro_medico = CTkLabel(self.tb_cadastro_medico,
                                                 text="Nome do Médico(a)*",
-                                                font=("Calibri", 16, "bold"),
+                                                font=("Calibri", 16),
                                                 text_color=self.black).place(x=16, y=10)
         self.entry_nome_cadastro_medico = CTkEntry(self.tb_cadastro_medico,
                                                    width=316,
                                                    height=40,
-                                                   border_width=2,
+                                                   border_width=1,
                                                    border_color=self.black,
                                                    fg_color=self.gray_light,
                                                    font=("Calibri", 16),
@@ -455,12 +457,12 @@ class CadastroWindow(CTkToplevel):
         self.lb_especialidade1_cadastro_medico = CTkLabel(self.tb_cadastro_medico,
                                                           text="Especialidade 1*",
                                                           font=(
-                                                              "Calibri", 16, "bold"),
+                                                              "Calibri", 16),
                                                           text_color=self.black).place(x=348, y=10)
         self.entry_especialidade1_cadastro_medico = CTkEntry(self.tb_cadastro_medico,
                                                              width=350,
                                                              height=40,
-                                                             border_width=2,
+                                                             border_width=1,
                                                              border_color=self.black,
                                                              fg_color=self.gray_light,
                                                              font=(
@@ -472,12 +474,12 @@ class CadastroWindow(CTkToplevel):
         self.lb_especialidade2_cadastro_medico = CTkLabel(self.tb_cadastro_medico,
                                                           text="Especialidade 2",
                                                           font=(
-                                                              "Calibri", 16, "bold"),
+                                                              "Calibri", 16),
                                                           text_color=self.black).place(x=16, y=90)
         self.entry_especialidade2_cadastro_medico = CTkEntry(self.tb_cadastro_medico,
                                                              width=284,
                                                              height=40,
-                                                             border_width=2,
+                                                             border_width=1,
                                                              border_color=self.black,
                                                              fg_color=self.gray_light,
                                                              font=(
@@ -488,12 +490,12 @@ class CadastroWindow(CTkToplevel):
         # Lab e Entry de CRM
         self.lb_crm_cadastro_medico = CTkLabel(self.tb_cadastro_medico,
                                                text="CRM*",
-                                               font=("Calibri", 16, "bold"),
+                                               font=("Calibri", 16),
                                                text_color=self.black).place(x=317, y=90)
         self.entry_crm_cadastro_medico = CTkEntry(self.tb_cadastro_medico,
                                                   width=184,
                                                   height=40,
-                                                  border_width=2,
+                                                  border_width=1,
                                                   border_color=self.black,
                                                   fg_color=self.gray_light,
                                                   font=("Calibri", 16),
@@ -503,12 +505,12 @@ class CadastroWindow(CTkToplevel):
         # Lab e Entry de CPF
         self.lb_cpf_cadastro_medico = CTkLabel(self.tb_cadastro_medico,
                                                text="CPF*",
-                                               font=("Calibri", 16, "bold"),
+                                               font=("Calibri", 16),
                                                text_color=self.black).place(x=518, y=90)
         self.entry_cpf_cadastro_medico = CTkEntry(self.tb_cadastro_medico,
                                                   width=184,
                                                   height=40,
-                                                  border_width=2,
+                                                  border_width=1,
                                                   border_color=self.black,
                                                   fg_color=self.gray_light,
                                                   font=("Calibri", 16),
@@ -518,12 +520,12 @@ class CadastroWindow(CTkToplevel):
         # Lab e Entry de E-Mail
         self.lb_email_cadastro_medico = CTkLabel(self.tb_cadastro_medico,
                                                  text="E-Mail",
-                                                 font=("Calibri", 16, "bold"),
+                                                 font=("Calibri", 16),
                                                  text_color=self.black).place(x=16, y=170)
         self.entry_email_cadastro_medico = CTkEntry(self.tb_cadastro_medico,
                                                     width=284,
                                                     height=40,
-                                                    border_width=2,
+                                                    border_width=1,
                                                     border_color=self.black,
                                                     fg_color=self.gray_light,
                                                     font=("Calibri", 16),
@@ -534,12 +536,12 @@ class CadastroWindow(CTkToplevel):
         self.lb_telefone_cadastro_medico = CTkLabel(self.tb_cadastro_medico,
                                                     text="Telefone",
                                                     font=(
-                                                        "Calibri", 16, "bold"),
+                                                        "Calibri", 16),
                                                     text_color=self.black).place(x=317, y=170)
         self.entry_telefone_cadastro_medico = CTkEntry(self.tb_cadastro_medico,
                                                        width=184,
                                                        height=40,
-                                                       border_width=2,
+                                                       border_width=1,
                                                        border_color=self.black,
                                                        fg_color=self.gray_light,
                                                        font=("Calibri", 16),
@@ -550,12 +552,12 @@ class CadastroWindow(CTkToplevel):
         self.lb_celular_cadastro_medico = CTkLabel(self.tb_cadastro_medico,
                                                    text="Celular*",
                                                    font=(
-                                                       "Calibri", 16, "bold"),
+                                                       "Calibri", 16),
                                                    text_color=self.black).place(x=518, y=170)
         self.entry_celular_cadastro_medico = CTkEntry(self.tb_cadastro_medico,
                                                       width=180,
                                                       height=40,
-                                                      border_width=2,
+                                                      border_width=1,
                                                       border_color=self.black,
                                                       fg_color=self.gray_light,
                                                       font=("Calibri", 16),
@@ -566,12 +568,12 @@ class CadastroWindow(CTkToplevel):
         self.lb_obervacao_cadastro_medico = CTkLabel(self.tb_cadastro_medico,
                                                      text="Obervação",
                                                      font=(
-                                                         "Calibri", 16, "bold"),
+                                                         "Calibri", 16),
                                                      text_color=self.black).place(x=16, y=250)
         self.entry_obervacao_cadastro_medico = CTkEntry(self.tb_cadastro_medico,
                                                         width=682,
                                                         height=40,
-                                                        border_width=2,
+                                                        border_width=1,
                                                         border_color=self.black,
                                                         fg_color=self.gray_light,
                                                         font=("Calibri", 16),
@@ -600,8 +602,8 @@ class CadastroWindow(CTkToplevel):
                                           font=("Calibri", 16, "bold"),
                                           width=126,
                                           height=48,
-                                          fg_color=self.blue_light_2,
-                                          hover_color=self.blue_light_1,
+                                          fg_color=self.white,
+                                          hover_color=self.blue_light_2,
                                           border_width=2,
                                           border_color=self.blue,
                                           command=self.limpar_cadastro_medico).place(x=422, y=534)
@@ -613,7 +615,8 @@ class CadastroWindow(CTkToplevel):
                                           width=126,
                                           height=48,
                                           fg_color=self.blue,
-                                          hover_color=self.dark_blue
+                                          hover_color=self.dark_blue,
+                                          command=self.add_dados_medicos
                                           ).place(x=570, y=534)
 
     def limpar_cadastro_paciente(self):
@@ -642,6 +645,53 @@ class CadastroWindow(CTkToplevel):
         self.entry_celular_cadastro_medico.delete(0, END)
         self.entry_obervacao_cadastro_medico.delete(0, END)
 
+    def conecta_bd(self):
+        self.conn = sqlite3.connect('banco_dados.bd')
+        self.cursor = self.conn.cursor()
+        print('Conectado ao banco de dados.')
+
+    def desconecta_bd(self):
+        self.conn.close()
+        print('Desconectado do banco de dados.')
+
+    def monta_tabela_medicos(self):
+        self.conecta_bd()
+        self.cursor.execute(""" 
+                            CREATE TABLE IF NOT EXISTS medicos (
+                                cod INTEGER PRIMARY KEY,
+                                cpf TEXT NOT NULL,
+                                nome TEXT NOT NULL,
+                                crm TEXT NOT NULL,
+                                especialidade1 TEXT NOL NULL,
+                                especialidade2 TEXT,
+                                email TEXT,
+                                celular TEXT NOT NULL,
+                                telefone NOT NULL,
+                                observacao TEXT
+                            );
+                        """)
+        print('Tabela de Médicos montada.')
+        self.conn.commit()
+        self.desconecta_bd()
+
+    def add_dados_medicos(self):
+        self.nome_medico = self.entry_nome_cadastro_medico.get()
+        self.especialidade1_medico = self.entry_especialidade1_cadastro_medico.get()
+        self.especialidade2_medico = self.entry_especialidade2_cadastro_medico.get()
+        self.crm_medico = self.entry_crm_cadastro_medico.get()
+        self.cpf_medico = self.entry_cpf_cadastro_medico.get()
+        self.email_medico = self.entry_email_cadastro_medico.get()
+        self.telefone_medico = self.entry_telefone_cadastro_medico.get()
+        self.celular_medico = self.entry_celular_cadastro_medico.get()
+        self.observacao_medico = self.entry_obervacao_cadastro_medico.get()
+
+        self.conecta_bd()
+        self.cursor.execute(""" INSERT INTO medicos (cpf, nome, crm, especialidade1, especialidade2, email, celular, telefone, observacao)
+                             VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)""", (self.cpf_medico, self.nome_medico, self.crm_medico, self.especialidade1_medico, self.especialidade2_medico, self.email_medico, self.celular_medico, self.telefone_medico, self.observacao_medico))
+        self.conn.commit()
+        self.desconecta_bd()
+        self.limpar_cadastro_medico()
+
 
 class ConsultaWindow(CTkToplevel):
     def __init__(self, parent):
@@ -668,6 +718,8 @@ class ConsultaWindow(CTkToplevel):
         self.tabview_agendar_consulta()
         # Widgets
         self.widget_agendar_consulta()
+
+        self.widget_consultar_agendamento()
 
     def frame_agendar_consulta(self):
         # Banner
@@ -719,48 +771,47 @@ class ConsultaWindow(CTkToplevel):
         # Frame dos dados do paciente
         self.frame_dados_paciente = CTkFrame(self.tb_agendar_consulta,
                                              width=1224,
-                                             height=192,
+                                             height=174,
                                              fg_color=self.white,
                                              border_color=self.blue_light_1,
-                                             border_width=3).place(x=10, y=24)
+                                             border_width=3).place(x=10, y=42)
 
         self.lb_dados_paciente = CTkLabel(self.tb_agendar_consulta,
                                           width=160,
                                           text='Dados do Paciente',
                                           font=('Calibri', 18, 'bold'),
                                           corner_radius=6,
-                                          fg_color=self.blue_light_1,
-                                          text_color=self.black).place(x=20, y=12)
+                                          text_color=self.black).place(x=5, y=12)
 
         # Labels e Entrys
         # Label e Entry CPF
         self.lb_cpf_agendamento_paciente = CTkLabel(self.tb_agendar_consulta,
-                                                     text="CPF",
-                                                     font=(
-                                                         "Calibri", 16, "bold"),
-                                                     text_color=self.black,
-                                                     fg_color=self.white).place(x=24, y=50)
+                                                    text="CPF*",
+                                                    font=(
+                                                         "Calibri", 16),
+                                                    text_color=self.black,
+                                                    fg_color=self.white).place(x=24, y=50)
         self.entry_cpf_agendamento_paciente = CTkEntry(self.tb_agendar_consulta,
-                                                        width=158,
-                                                        height=40,
-                                                        border_width=2,
-                                                        border_color=self.black,
-                                                        fg_color=self.gray_light,
-                                                        font=("Calibri", 16),
-                                                        text_color=self.black)
+                                                       width=158,
+                                                       height=40,
+                                                       border_width=1,
+                                                       border_color=self.black,
+                                                       fg_color=self.gray_light,
+                                                       font=("Calibri", 16),
+                                                       text_color=self.black)
         self.entry_cpf_agendamento_paciente.place(x=24, y=80)
 
         # Label e Entry Nome
         self.lb_none_agendamento_paciente = CTkLabel(self.tb_agendar_consulta,
-                                                     text="Nome Completo do Paciente",
+                                                     text="Nome Completo do Paciente*",
                                                      font=(
-                                                         "Calibri", 16, "bold"),
+                                                         "Calibri", 16),
                                                      text_color=self.black,
                                                      fg_color=self.white).place(x=198, y=50)
         self.entry_nome_agendamento_paciente = CTkEntry(self.tb_agendar_consulta,
                                                         width=360,
                                                         height=40,
-                                                        border_width=2,
+                                                        border_width=1,
                                                         border_color=self.black,
                                                         fg_color=self.gray_light,
                                                         font=("Calibri", 16),
@@ -769,26 +820,27 @@ class ConsultaWindow(CTkToplevel):
 
         # Label e Entry Nascimento
         self.lb_nascimento_agendamento_paciente = CTkLabel(self.tb_agendar_consulta,
-                                                     text="Data de Nasc.",
-                                                     font=(
-                                                         "Calibri", 16, "bold"),
-                                                     text_color=self.black,
-                                                     fg_color=self.white).place(x=576, y=50)
+                                                           text="Data de Nasc.*",
+                                                           font=(
+                                                               "Calibri", 16),
+                                                           text_color=self.black,
+                                                           fg_color=self.white).place(x=576, y=50)
         self.entry_nascimento_agendamento_paciente = CTkEntry(self.tb_agendar_consulta,
-                                                        width=160,
-                                                        height=40,
-                                                        border_width=2,
-                                                        border_color=self.black,
-                                                        fg_color=self.gray_light,
-                                                        font=("Calibri", 16),
-                                                        text_color=self.black)
+                                                              width=160,
+                                                              height=40,
+                                                              border_width=1,
+                                                              border_color=self.black,
+                                                              fg_color=self.gray_light,
+                                                              font=(
+                                                                  "Calibri", 16),
+                                                              text_color=self.black)
         self.entry_nascimento_agendamento_paciente.place(x=576, y=80)
 
         # Gênero
         self.lb_genero_agendamento_paciente = CTkLabel(self.tb_agendar_consulta,
                                                        text="Gênero",
                                                        font=(
-                                                           "Calibri", 16, "bold"),
+                                                           "Calibri", 16),
                                                        text_color=self.black,
                                                        fg_color=self.white).place(x=754, y=50)
         genero = ['null', 'Masculino', 'Feminino']
@@ -799,7 +851,7 @@ class ConsultaWindow(CTkToplevel):
                                      dropdown_font=('Calibri', 16),
                                      dropdown_text_color=self.black,
                                      text_color=self.black,
-                                     border_width=2,
+                                     border_width=1,
                                      border_color=self.black,
                                      fg_color=self.white,
                                      button_hover_color=self.dark_blue,
@@ -811,32 +863,33 @@ class ConsultaWindow(CTkToplevel):
 
         # Label e Entry Endereço
         self.lb_endereco_agendamento_paciente = CTkLabel(self.tb_agendar_consulta,
-                                                     text="Endereço",
-                                                     font=(
-                                                         "Calibri", 16, "bold"),
-                                                     text_color=self.black,
-                                                     fg_color=self.white).place(x=932, y=50)
+                                                         text="Endereço",
+                                                         font=(
+                                                             "Calibri", 16),
+                                                         text_color=self.black,
+                                                         fg_color=self.white).place(x=932, y=50)
         self.entry_endereco_agendamento_paciente = CTkEntry(self.tb_agendar_consulta,
-                                                        width=288,
-                                                        height=40,
-                                                        border_width=2,
-                                                        border_color=self.black,
-                                                        fg_color=self.gray_light,
-                                                        font=("Calibri", 16),
-                                                        text_color=self.black)
+                                                            width=288,
+                                                            height=40,
+                                                            border_width=1,
+                                                            border_color=self.black,
+                                                            fg_color=self.gray_light,
+                                                            font=(
+                                                                "Calibri", 16),
+                                                            text_color=self.black)
         self.entry_endereco_agendamento_paciente.place(x=932, y=80)
 
         # Label e Entry Bairro
         self.lb_bairro_agendamento_paciente = CTkLabel(self.tb_agendar_consulta,
                                                        text="Bairro",
                                                        font=(
-                                                           "Calibri", 16, "bold"),
+                                                           "Calibri", 16),
                                                        text_color=self.black,
                                                        fg_color=self.white).place(x=24, y=130)
         self.entry_bairro_agendamento_paciente = CTkEntry(self.tb_agendar_consulta,
                                                           width=188,
                                                           height=40,
-                                                          border_width=2,
+                                                          border_width=1,
                                                           border_color=self.black,
                                                           fg_color=self.gray_light,
                                                           font=("Calibri", 16),
@@ -847,13 +900,13 @@ class ConsultaWindow(CTkToplevel):
         self.lb_cidade_agendamento_paciente = CTkLabel(self.tb_agendar_consulta,
                                                        text="Cidade",
                                                        font=(
-                                                           "Calibri", 16, "bold"),
+                                                           "Calibri", 16),
                                                        text_color=self.black,
                                                        fg_color=self.white).place(x=230, y=130)
         self.entry_cidade_agendamento_paciente = CTkEntry(self.tb_agendar_consulta,
                                                           width=220,
                                                           height=40,
-                                                          border_width=2,
+                                                          border_width=1,
                                                           border_color=self.black,
                                                           fg_color=self.gray_light,
                                                           font=("Calibri", 16),
@@ -864,13 +917,13 @@ class ConsultaWindow(CTkToplevel):
         self.lb_numero_agendamento_paciente = CTkLabel(self.tb_agendar_consulta,
                                                        text="Número",
                                                        font=(
-                                                           "Calibri", 16, "bold"),
+                                                           "Calibri", 16),
                                                        text_color=self.black,
                                                        fg_color=self.white).place(x=468, y=130)
         self.entry_numero_agendamento_paciente = CTkEntry(self.tb_agendar_consulta,
                                                           width=90,
                                                           height=40,
-                                                          border_width=2,
+                                                          border_width=1,
                                                           border_color=self.black,
                                                           fg_color=self.gray_light,
                                                           font=("Calibri", 16),
@@ -881,13 +934,13 @@ class ConsultaWindow(CTkToplevel):
         self.lb_email_agendamento_paciente = CTkLabel(self.tb_agendar_consulta,
                                                       text="E-Mail",
                                                       font=(
-                                                          "Calibri", 16, "bold"),
+                                                          "Calibri", 16),
                                                       text_color=self.black,
                                                       fg_color=self.white).place(x=576, y=130)
         self.entry_email_agendamento_paciente = CTkEntry(self.tb_agendar_consulta,
                                                          width=280,
                                                          height=40,
-                                                         border_width=2,
+                                                         border_width=1,
                                                          border_color=self.black,
                                                          fg_color=self.gray_light,
                                                          font=("Calibri", 16),
@@ -896,15 +949,15 @@ class ConsultaWindow(CTkToplevel):
 
         # Label e Entry Celular
         self.lb_celular_agendamento_paciente = CTkLabel(self.tb_agendar_consulta,
-                                                        text="Celular",
+                                                        text="Celular*",
                                                         font=(
-                                                            "Calibri", 16, "bold"),
+                                                            "Calibri", 16),
                                                         text_color=self.black,
                                                         fg_color=self.white).place(x=874, y=130)
         self.entry_celular_agendamento_paciente = CTkEntry(self.tb_agendar_consulta,
                                                            width=168,
                                                            height=40,
-                                                           border_width=2,
+                                                           border_width=1,
                                                            border_color=self.black,
                                                            fg_color=self.gray_light,
                                                            font=(
@@ -916,13 +969,13 @@ class ConsultaWindow(CTkToplevel):
         self.lb_telefone_agendamento_paciente = CTkLabel(self.tb_agendar_consulta,
                                                          text="Telefone",
                                                          font=(
-                                                             "Calibri", 16, "bold"),
+                                                             "Calibri", 16),
                                                          text_color=self.black,
                                                          fg_color=self.white).place(x=1060, y=130)
         self.entry_telefone_agendamento_paciente = CTkEntry(self.tb_agendar_consulta,
                                                             width=160,
                                                             height=40,
-                                                            border_width=2,
+                                                            border_width=1,
                                                             border_color=self.black,
                                                             fg_color=self.gray_light,
                                                             font=(
@@ -934,157 +987,371 @@ class ConsultaWindow(CTkToplevel):
         # Frame dos dados do médico
         self.frame_dados_medico = CTkFrame(self.tb_agendar_consulta,
                                            width=1224,
-                                           height=116,
+                                           height=96,
                                            fg_color=self.white,
                                            border_color=self.blue_light_1,
-                                           border_width=3).place(x=10, y=242)
+                                           border_width=3).place(x=10, y=260)
 
         self.lb_dados_medico = CTkLabel(self.tb_agendar_consulta,
                                         width=160,
                                         text='Dados do Médico',
                                         font=('Calibri', 18, 'bold'),
                                         corner_radius=6,
-                                        fg_color=self.blue_light_1,
-                                        text_color=self.black).place(x=20, y=230)
+                                        text_color=self.black).place(x=2, y=230)
 
         # Label e Entry CRM
         self.lb_crm_agendamento_medico = CTkLabel(self.tb_agendar_consulta,
-                                                     text="CRM",
-                                                     font=(
-                                                         "Calibri", 16, "bold"),
-                                                     text_color=self.black,
-                                                     fg_color=self.white).place(x=24, y=270)
+                                                  text="CRM",
+                                                  font=(
+                                                      "Calibri", 16),
+                                                  text_color=self.black,
+                                                  fg_color=self.white).place(x=24, y=270)
         self.entry_crm_agendamento_medico = CTkEntry(self.tb_agendar_consulta,
-                                                        width=150,
-                                                        height=40,
-                                                        border_width=2,
-                                                        border_color=self.black,
-                                                        fg_color=self.gray_light,
-                                                        font=("Calibri", 16),
-                                                        text_color=self.black)
+                                                     width=150,
+                                                     height=40,
+                                                     border_width=1,
+                                                     border_color=self.black,
+                                                     fg_color=self.gray_light,
+                                                     font=("Calibri", 16),
+                                                     text_color=self.black)
         self.entry_crm_agendamento_medico.place(x=24, y=300)
-        
+
         # Label e Entry Médico
         self.lb_nome_agendamento_medico = CTkLabel(self.tb_agendar_consulta,
-                                                     text="Médico",
-                                                     font=(
-                                                         "Calibri", 16, "bold"),
-                                                     text_color=self.black,
-                                                     fg_color=self.white).place(x=190, y=270)
+                                                   text="Médico",
+                                                   font=(
+                                                       "Calibri", 16),
+                                                   text_color=self.black,
+                                                   fg_color=self.white).place(x=190, y=270)
         self.entry_nome_agendamento_medico = CTkEntry(self.tb_agendar_consulta,
-                                                        width=356,
-                                                        height=40,
-                                                        border_width=2,
-                                                        border_color=self.black,
-                                                        fg_color=self.gray_light,
-                                                        font=("Calibri", 16),
-                                                        text_color=self.black)
+                                                      width=356,
+                                                      height=40,
+                                                      border_width=1,
+                                                      border_color=self.black,
+                                                      fg_color=self.gray_light,
+                                                      font=("Calibri", 16),
+                                                      text_color=self.black)
         self.entry_nome_agendamento_medico.place(x=190, y=300)
-        
+
         # Label e Entry Especialidade 1
         self.lb_especialidade1_agendamento_medico = CTkLabel(self.tb_agendar_consulta,
-                                                     text="Especialidade 1",
-                                                     font=(
-                                                         "Calibri", 16, "bold"),
-                                                     text_color=self.black,
-                                                     fg_color=self.white).place(x=564, y=270)
+                                                             text="Especialidade 1",
+                                                             font=(
+                                                                 "Calibri", 16),
+                                                             text_color=self.black,
+                                                             fg_color=self.white).place(x=564, y=270)
         self.entry_especialidade1_agendamento_medico = CTkEntry(self.tb_agendar_consulta,
-                                                        width=320,
-                                                        height=40,
-                                                        border_width=2,
-                                                        border_color=self.black,
-                                                        fg_color=self.gray_light,
-                                                        font=("Calibri", 16),
-                                                        text_color=self.black)
+                                                                width=320,
+                                                                height=40,
+                                                                border_width=1,
+                                                                border_color=self.black,
+                                                                fg_color=self.gray_light,
+                                                                font=(
+                                                                    "Calibri", 16),
+                                                                text_color=self.black)
         self.entry_especialidade1_agendamento_medico.place(x=564, y=300)
-        
+
         # Label e Entry Especialidade 2
         self.lb_especialidade2_agendamento_medico = CTkLabel(self.tb_agendar_consulta,
-                                                     text="Especialidade 2",
-                                                     font=(
-                                                         "Calibri", 16, "bold"),
-                                                     text_color=self.black,
-                                                     fg_color=self.white).place(x=900, y=270)
+                                                             text="Especialidade 2",
+                                                             font=(
+                                                                 "Calibri", 16),
+                                                             text_color=self.black,
+                                                             fg_color=self.white).place(x=900, y=270)
         self.entry_especialidade2_agendamento_medico = CTkEntry(self.tb_agendar_consulta,
-                                                        width=320,
-                                                        height=40,
-                                                        border_width=2,
-                                                        border_color=self.black,
-                                                        fg_color=self.gray_light,
-                                                        font=("Calibri", 16),
-                                                        text_color=self.black)
+                                                                width=320,
+                                                                height=40,
+                                                                border_width=1,
+                                                                border_color=self.black,
+                                                                fg_color=self.gray_light,
+                                                                font=(
+                                                                    "Calibri", 16),
+                                                                text_color=self.black)
         self.entry_especialidade2_agendamento_medico.place(x=900, y=300)
-        
-        
+
         # Dados do Agendamento
         # Frame dos dados do médico
         self.frame_dados_agendamento = CTkFrame(self.tb_agendar_consulta,
-                                           width=1224,
-                                           height=116,
-                                           fg_color=self.white,
-                                           border_color=self.blue_light_1,
-                                           border_width=3).place(x=10, y=384)
+                                                width=1224,
+                                                height=96,
+                                                fg_color=self.white,
+                                                border_color=self.blue_light_1,
+                                                border_width=3).place(x=10, y=400)
 
         self.lb_dados_agendamento = CTkLabel(self.tb_agendar_consulta,
-                                        width=160,
-                                        text='Dados do Agendamento',
-                                        font=('Calibri', 18, 'bold'),
-                                        corner_radius=6,
-                                        fg_color=self.blue_light_1,
-                                        text_color=self.black).place(x=20, y=372)
+                                             width=160,
+                                             text='Dados do Agendamento',
+                                             font=('Calibri', 18, 'bold'),
+                                             corner_radius=6,
+                                             text_color=self.black).place(x=10, y=372)
 
         # Label e Entry Data Agendamento
         self.lb_data_agendamento = CTkLabel(self.tb_agendar_consulta,
-                                                     text="Data Agend.",
-                                                     font=(
-                                                         "Calibri", 16, "bold"),
-                                                     text_color=self.black,
-                                                     fg_color=self.white).place(x=24, y=410)
+                                            text="Data Agend.*",
+                                            font=(
+                                                "Calibri", 16),
+                                            text_color=self.black,
+                                            fg_color=self.white).place(x=24, y=410)
         self.entry_data_agendamento = CTkEntry(self.tb_agendar_consulta,
-                                                        width=180,
-                                                        height=40,
-                                                        border_width=2,
-                                                        border_color=self.black,
-                                                        fg_color=self.gray_light,
-                                                        font=("Calibri", 16),
-                                                        text_color=self.black)
+                                               width=180,
+                                               height=40,
+                                               border_width=1,
+                                               border_color=self.black,
+                                               fg_color=self.gray_light,
+                                               font=("Calibri", 16),
+                                               text_color=self.black)
         self.entry_data_agendamento.place(x=24, y=440)
-        
-        # Label e Entry Médico
+
+        # Label e Entry Horário do Agendamento
         self.lb_horario_agendamento = CTkLabel(self.tb_agendar_consulta,
-                                                     text="Horário Agend.",
-                                                     font=(
-                                                         "Calibri", 16, "bold"),
-                                                     text_color=self.black,
-                                                     fg_color=self.white).place(x=222, y=410)
+                                               text="Horário Agend.*",
+                                               font=(
+                                                   "Calibri", 16),
+                                               text_color=self.black,
+                                               fg_color=self.white).place(x=222, y=410)
         self.entry_horario_agendamento = CTkEntry(self.tb_agendar_consulta,
-                                                        width=180,
-                                                        height=40,
-                                                        border_width=2,
-                                                        border_color=self.black,
-                                                        fg_color=self.gray_light,
-                                                        font=("Calibri", 16),
-                                                        text_color=self.black)
+                                                  width=180,
+                                                  height=40,
+                                                  border_width=1,
+                                                  border_color=self.black,
+                                                  fg_color=self.gray_light,
+                                                  font=("Calibri", 16),
+                                                  text_color=self.black)
         self.entry_horario_agendamento.place(x=222, y=440)
-        
+
         # Label e Entry Observação
         self.lb_observacao_agendamento = CTkLabel(self.tb_agendar_consulta,
-                                                     text="Observação",
-                                                     font=(
-                                                         "Calibri", 16, "bold"),
-                                                     text_color=self.black,
-                                                     fg_color=self.white).place(x=420, y=410)
+                                                  text="Observação",
+                                                  font=(
+                                                      "Calibri", 16),
+                                                  text_color=self.black,
+                                                  fg_color=self.white).place(x=420, y=410)
         self.entry_observacao_agendamento = CTkEntry(self.tb_agendar_consulta,
-                                                        width=800,
-                                                        height=40,
-                                                        border_width=2,
-                                                        border_color=self.black,
-                                                        fg_color=self.gray_light,
-                                                        font=("Calibri", 16),
-                                                        text_color=self.black)
+                                                     width=800,
+                                                     height=40,
+                                                     border_width=1,
+                                                     border_color=self.black,
+                                                     fg_color=self.gray_light,
+                                                     font=("Calibri", 16),
+                                                     text_color=self.black)
         self.entry_observacao_agendamento.place(x=420, y=440)
-        
-        
+
+        # Aviso
+        # Frame de aviso
+        self.bane_aviso_agendamento = CTkFrame(master=self.tb_agendar_consulta,
+                                               width=700,
+                                               height=48,
+                                               fg_color=self.blue_light_1,
+                                               border_color=self.blue,
+                                               border_width=3).place(x=10, y=530,)
+        self.lb_aviso_agendamento = CTkLabel(master=self.tb_agendar_consulta,
+                                             text="●  Atenção: Certifique-se de que todos os campos estão devidamente preenchidos antes de agendar a consulta.",
+                                             text_color=self.black,
+                                             font=("Calibri", 14, "bold"),
+                                             fg_color=self.blue_light_1).place(x=24, y=540)
+
+        # Botões
+        # Botão de Limpar
+        self.bt_limpar_agendamento = CTkButton(self.tb_agendar_consulta,
+                                               text="Limpar",
+                                               text_color=self.blue,
+                                               font=(
+                                                   "Calibri", 16, "bold"),
+                                               width=126,
+                                               height=48,
+                                               fg_color=self.white,
+                                               hover_color=self.blue_light_2,
+                                               border_width=2,
+                                               border_color=self.blue,
+                                               command=self.limpar_agendamento).place(x=960, y=612)
+        # Botão de Buscar
+        self.bt_disponibilidade_agendamento = CTkButton(self.tb_agendar_consulta,
+                                                        text="Agendar",
+                                                        text_color=self.white,
+                                                        font=(
+                                                            "Calibri", 16, "bold"),
+                                                        width=126,
+                                                        height=48,
+                                                        fg_color=self.blue,
+                                                        hover_color=self.dark_blue
+                                                        ).place(x=1108, y=612)
+
+    def widget_consultar_agendamento(self):
+
+        # Dados de Busca
+        # Frame dos dados do paciente
+        self.frame_dados_paciente = CTkFrame(self.tb_consultar_agendamento,
+                                             width=1224,
+                                             height=96,
+                                             fg_color=self.white,
+                                             border_color=self.blue_light_1,
+                                             border_width=3).place(x=10, y=42)
+
+        self.lb_buscar_agendamento = CTkLabel(self.tb_consultar_agendamento,
+                                              width=160,
+                                              text='Dados de Busca',
+                                              font=('Calibri', 18, 'bold'),
+                                              corner_radius=6,
+                                              text_color=self.black).place(x=0, y=12)
+
+        # Labels e Entrys
+        # Label e Entry Numero Agendamento
+        self.lb_numero_agendamento_busca = CTkLabel(self.tb_consultar_agendamento,
+                                                    text="Número do Agend.",
+                                                    font=(
+                                                         "Calibri", 16),
+                                                    text_color=self.black,
+                                                    fg_color=self.white).place(x=24, y=50)
+        self.entry_numero_agendamento_busca = CTkEntry(self.tb_consultar_agendamento,
+                                                       width=158,
+                                                       height=40,
+                                                       border_width=1,
+                                                       border_color=self.black,
+                                                       fg_color=self.gray_light,
+                                                       font=("Calibri", 16),
+                                                       text_color=self.black)
+        self.entry_numero_agendamento_busca.place(x=24, y=80)
+
+        # Label e Entry CPF
+        self.lb_cpf_agendamento_busca = CTkLabel(self.tb_consultar_agendamento,
+                                                 text="CPF",
+                                                 font=(
+                                                     "Calibri", 16),
+                                                 text_color=self.black,
+                                                 fg_color=self.white).place(x=198, y=50)
+        self.entry_cpf_agendamento_busca = CTkEntry(self.tb_consultar_agendamento,
+                                                    width=180,
+                                                    height=40,
+                                                    border_width=1,
+                                                    border_color=self.black,
+                                                    fg_color=self.gray_light,
+                                                    font=("Calibri", 16),
+                                                    text_color=self.black)
+        self.entry_cpf_agendamento_busca.place(x=198, y=80)
+
+        # Label e Entry Nome
+        self.lb_none_agendamento_paciente_busca = CTkLabel(self.tb_consultar_agendamento,
+                                                           text="Nome Completo do Paciente",
+                                                           font=(
+                                                               "Calibri", 16),
+                                                           text_color=self.black,
+                                                           fg_color=self.white).place(x=394, y=50)
+        self.entry_nome_agendamento_paciente_busca = CTkEntry(self.tb_consultar_agendamento,
+                                                              width=360,
+                                                              height=40,
+                                                              border_width=1,
+                                                              border_color=self.black,
+                                                              fg_color=self.gray_light,
+                                                              font=(
+                                                                  "Calibri", 16),
+                                                              text_color=self.black)
+        self.entry_nome_agendamento_paciente_busca.place(x=394, y=80)
+
+        # Botões
+        # Botão de Limpar
+        self.bt_limpar_buscar_agendamento = CTkButton(self.tb_consultar_agendamento,
+                                                      text="Limpar",
+                                                      text_color=self.blue,
+                                                      font=(
+                                                          "Calibri", 16, "bold"),
+                                                      width=126,
+                                                      height=48,
+                                                      fg_color=self.blue_light_2,
+                                                      hover_color=self.blue_light_1,
+                                                      border_width=2,
+                                                      border_color=self.blue,
+                                                      command=self.limpar_buscar_agendamento).place(x=944, y=72)
+        # Botão de Buscar
+        self.bt_buscar_agendamento = CTkButton(self.tb_consultar_agendamento,
+                                               text="Buscar",
+                                               text_color=self.white,
+                                               font=("Calibri", 16, "bold"),
+                                               width=126,
+                                               height=48,
+                                               fg_color=self.blue,
+                                               hover_color=self.dark_blue
+                                               ).place(x=1092, y=72)
+
+        # Resultado da busca
+        # Frame dos dados do paciente
+        self.frame_buscar_agendamento = CTkFrame(self.tb_consultar_agendamento,
+                                                 width=1224,
+                                                 height=480,
+                                                 fg_color=self.white,
+                                                 border_color=self.blue_light_1,
+                                                 border_width=3).place(x=10, y=180)
+
+        self.lb_buscar_agendamento = CTkLabel(self.tb_consultar_agendamento,
+                                              width=160,
+                                              text='Resultado da Busca',
+                                              font=('Calibri', 18, 'bold'),
+                                              text_color=self.black).place(x=10, y=150)
+
+        self.scroll_treeview = ttk.Scrollbar(self.tb_consultar_agendamento)
+        self.scroll_treeview.place(x=1200, y=190, width=20, height=460)
+
+        self.lista_resultado_agendamento = ttk.Treeview(self.tb_consultar_agendamento, height=3, columns=(
+            'col1', 'col2', 'col3', 'col4', 'col5', 'col6', 'col7', 'col8', 'col9',), yscrollcommand=self.scroll_treeview, selectmode='browse')
+        self.lista_resultado_agendamento.place(
+            x=20, y=190, width=1178, height=460)
+
+        self.lista_resultado_agendamento.heading('#0', text='')
+        self.lista_resultado_agendamento.heading('#1', text='Agend.')
+        self.lista_resultado_agendamento.heading('#2', text='CPF')
+        self.lista_resultado_agendamento.heading('#3', text='Nome')
+        self.lista_resultado_agendamento.heading('#4', text='Celular')
+        self.lista_resultado_agendamento.heading('#5', text='Médico')
+        self.lista_resultado_agendamento.heading('#6', text='Especialidade')
+        self.lista_resultado_agendamento.heading('#7', text='Data Cons.')
+        self.lista_resultado_agendamento.heading('#8', text='Hor. Cons')
+        self.lista_resultado_agendamento.heading('#9', text='Observação')
+
+        self.lista_resultado_agendamento.column('#0', width=1)
+        self.lista_resultado_agendamento.column('#1', width=50)
+        self.lista_resultado_agendamento.column('#2', width=80)
+        self.lista_resultado_agendamento.column('#3', width=200)
+        self.lista_resultado_agendamento.column('#4', width=80)
+        self.lista_resultado_agendamento.column('#5', width=200)
+        self.lista_resultado_agendamento.column('#6', width=150)
+        self.lista_resultado_agendamento.column('#7', width=70)
+        self.lista_resultado_agendamento.column('#8', width=50)
+        self.lista_resultado_agendamento.column('#9', width=200)
+
+        self.lista_resultado_agendamento.insert(parent='', index="end", text='', values=(
+            '1', '000.000.000.-71', 'Alex Souza', '7198823-4398', 'Marcelo Zcard', 'Ortopedista', '01/02/2025', '14:00', ''))
+
+        self.lista_resultado_agendamento.insert(parent='', index="end", text='', values=(
+            '2', '000.000.000.-71', 'Thales Silva', '7198823-4398', 'Luzia Mendes', 'Nutricionista', '01/02/2025', '13:00', ''))
+
+        self.lista_resultado_agendamento.insert(parent='', index="end", text='', values=(
+            '3', '000.000.000.-71', 'Orlando Blun', '7198823-4398', 'Fernando Lima', 'Dermatologista', '02/02/2025', '08:00', ''))
+
+    def limpar_buscar_agendamento(self):
+        self.entry_numero_agendamento_busca.delete(0, END)
+        self.entry_cpf_agendamento_busca.delete(0, END)
+        self.entry_nome_agendamento_paciente_busca.delete(0, END)
+
+    def limpar_agendamento(self):
+        # Limpa os Dados do Paciente
+        self.entry_cpf_agendamento_paciente.delete(0, END)
+        self.entry_nome_agendamento_paciente.delete(0, END)
+        self.entry_nascimento_agendamento_paciente.delete(0, END)
+        self.entry_endereco_agendamento_paciente.delete(0, END)
+        self.entry_bairro_agendamento_paciente.delete(0, END)
+        self.entry_cidade_agendamento_paciente.delete(0, END)
+        self.entry_numero_agendamento_paciente.delete(0, END)
+        self.entry_email_agendamento_paciente.delete(0, END)
+        self.entry_celular_agendamento_paciente.delete(0, END)
+        self.entry_telefone_agendamento_paciente.delete(0, END)
+        # Limpa os Dados do Médico
+        self.entry_crm_agendamento_medico.delete(0, END)
+        self.entry_nome_agendamento_medico.delete(0, END)
+        self.entry_especialidade1_agendamento_medico.delete(0, END)
+        self.entry_especialidade2_agendamento_medico.delete(0, END)
+        # Limpa os Dados do Agendamento
+        self.entry_data_agendamento.delete(0, END)
+        self.entry_horario_agendamento.delete(0, END)
+        self.entry_observacao_agendamento.delete(0, END)
 
 
 if __name__ == '__main__':
