@@ -4,7 +4,7 @@
 
 </br>
 </br>
-Bem-vindo ao repositório do projeto MediAgenda, um sistema de gestão de agendamento e cadastro de consultas médicas desenvolvido em Python. O MediAgenda oferece uma solução
+Bem-vindo ao repositório do projeto PyMediAgenda, um sistema de gestão de agendamento e cadastro de consultas médicas desenvolvido em Python. O MediAgenda oferece uma solução
 eficiente para clínicas e consultórios, permitindo o gerenciamento fácil e organizado de pacientes, médicos e consultas.
 
 <div align="center">
