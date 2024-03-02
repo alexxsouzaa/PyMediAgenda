@@ -740,6 +740,7 @@ class CadastroWindow(CTkToplevel):
         self.desconecta_bd()
         self.limpar_cadastro_paciente()
 
+
 class ConsultaWindow(CTkToplevel):
     def __init__(self, parent):
         super().__init__(parent)
@@ -758,6 +759,8 @@ class ConsultaWindow(CTkToplevel):
         self.title("Agendamento de Consultas")
         self.geometry("1280x850+350+100")
         self.resizable(False, False)
+
+        self.monta_tabela_agendamentos()
 
         # Frame
         self.frame_agendar_consulta()
@@ -890,8 +893,7 @@ class ConsultaWindow(CTkToplevel):
                                                            "Calibri", 16),
                                                        text_color=self.black,
                                                        fg_color=self.white).place(x=754, y=50)
-        genero = ['null', 'Masculino', 'Feminino']
-        self.cb_genero = CTkComboBox(self.tb_agendar_consulta,
+        self.cb_genero_agendamento_paciente = CTkComboBox(self.tb_agendar_consulta,
                                      width=160,
                                      height=40,
                                      font=("Calibri", 16),
@@ -906,7 +908,8 @@ class ConsultaWindow(CTkToplevel):
                                      dropdown_fg_color=self.white,
                                      dropdown_hover_color=self.blue_light_2,
                                      justify='left',
-                                     values=genero).place(x=754, y=80)
+                                     values=('null', 'Masculino', 'Feminino'))
+        self.cb_genero_agendamento_paciente.place(x=754, y=80)
 
         # Label e Entry Endereço
         self.lb_endereco_agendamento_paciente = CTkLabel(self.tb_agendar_consulta,
@@ -1211,7 +1214,7 @@ class ConsultaWindow(CTkToplevel):
                                                border_width=2,
                                                border_color=self.blue,
                                                command=self.limpar_agendamento).place(x=960, y=612)
-        # Botão de Buscar
+        # Botão de Agendar
         self.bt_disponibilidade_agendamento = CTkButton(self.tb_agendar_consulta,
                                                         text="Agendar",
                                                         text_color=self.white,
@@ -1220,7 +1223,8 @@ class ConsultaWindow(CTkToplevel):
                                                         width=126,
                                                         height=48,
                                                         fg_color=self.blue,
-                                                        hover_color=self.dark_blue
+                                                        hover_color=self.dark_blue,
+                                                        command=self.add_dados_agendamento
                                                         ).place(x=1108, y=612)
 
     def widget_consultar_agendamento(self):
@@ -1399,6 +1403,74 @@ class ConsultaWindow(CTkToplevel):
         self.entry_data_agendamento.delete(0, END)
         self.entry_horario_agendamento.delete(0, END)
         self.entry_observacao_agendamento.delete(0, END)
+
+    def conecta_bd(self):
+        self.conn = sqlite3.connect('banco_dados.bd')
+        self.cursor = self.conn.cursor()
+        print('Conectado ao banco de dados.')
+
+    def desconecta_bd(self):
+        self.conn.close()
+        print('Desconectado do banco de dados.')
+
+    def monta_tabela_agendamentos(self):
+        self.conecta_bd()
+        self.cursor.execute(""" 
+                            CREATE TABLE IF NOT EXISTS agendamentos (
+                                cod INTEGER PRIMARY KEY,
+                                cpf TEXT NOT NULL,
+                                nome TEXT NOT NULL,
+                                data_nascimento DATE,
+                                genero TEXT,
+                                cep TEXT,
+                                endereco TEXT,
+                                numero INTEGER,
+                                bairro TEXT,
+                                cidade TEXT,
+                                estado TEXT,
+                                email TEXT,
+                                celular TEXT NOT NULL,
+                                telefone TEXT,
+                                medico TEXT NOT NULL,
+                                especialidade_um TEXT NOT NULL,
+                                especialidade_dois TEXT,
+                                data_agendamento DATE NOT NULL,
+                                hora_agendamento TIME NOT NULL,
+                                observacao TEXT
+                            );
+                        """)
+        print('Tabela de Agendamento montada.')
+        self.conn.commit()
+        self.desconecta_bd()
+
+    def add_dados_agendamento(self):
+        # Dados do paciente
+        nome_paciente_agendamento = self.entry_nome_agendamento_paciente.get()
+        cpf_paciente_agendamento = self.entry_cpf_agendamento_paciente.get()
+        data_nascimento_paciente_agendamento = self.entry_nascimento_agendamento_paciente.get()
+        genero_paciente_agendamento = self.cb_genero_agendamento_paciente.get()
+        endereco_paciente_agendamento = self.entry_endereco_agendamento_paciente.get()
+        numero_paciente_agendamento = self.entry_numero_agendamento_paciente.get()
+        bairro_paciente_agendamento = self.entry_bairro_agendamento_paciente.get()
+        cidade_paciente_agendamento = self.entry_cidade_agendamento_paciente.get()
+        email_paciente_agendamento = self.entry_email_agendamento_paciente.get()
+        telefone_paciente_agendamento = self.entry_telefone_agendamento_paciente.get()
+        celular_paciente_agendamento = self.entry_celular_agendamento_paciente.get()
+        # Dados do médico
+        nome_medico_agendamento = self.entry_nome_agendamento_medico.get()
+        especialidade1_medico_agendamento = self.entry_especialidade1_agendamento_medico.get()
+        especialidade2_medico_agendamento = self.entry_especialidade2_agendamento_medico.get()
+        # Dados do agendamento
+        data_agendamento = self.entry_data_agendamento.get()
+        hora_agendamento = self.entry_horario_agendamento.get()
+        observacao_agendamento = self.entry_observacao_agendamento.get()
+
+        self.conecta_bd()
+        self.cursor.execute(""" INSERT INTO agendamentos (cpf, nome, data_nascimento, genero, endereco, numero, bairro, cidade, email, celular, telefone, medico, especialidade_um, especialidade_dois, data_agendamento, hora_agendamento, observacao)
+                                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (cpf_paciente_agendamento, nome_paciente_agendamento, data_nascimento_paciente_agendamento, genero_paciente_agendamento,endereco_paciente_agendamento, numero_paciente_agendamento, bairro_paciente_agendamento, cidade_paciente_agendamento, email_paciente_agendamento, celular_paciente_agendamento, telefone_paciente_agendamento, nome_medico_agendamento, especialidade1_medico_agendamento, especialidade2_medico_agendamento, data_agendamento, hora_agendamento, observacao_agendamento))
+        self.conn.commit()
+        self.desconecta_bd()
+        print(f'Consultado do paciente {nome_paciente_agendamento} com o Dr. {nome_medico_agendamento}, foi agendada com sucesso!')
 
 
 if __name__ == '__main__':
