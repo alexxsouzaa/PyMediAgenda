@@ -23,7 +23,7 @@ class MainWindow(CTk):
         self.title("Bem-Vindo!")
         self._set_appearance_mode("light")
         self.configure(fg_color='#fff')
-        self.iconbitmap(default="assets\icons\icon.ico")
+        self.iconbitmap("assets\icons\icon.ico")
         self.geometry("1000x500+500+200")
         self.resizable(False, False)
 
@@ -757,18 +757,20 @@ class ConsultaWindow(CTkToplevel):
         # Configuração da Janela
         self.configure(fg_color="#fff")
         self.title("Agendamento de Consultas")
+        self.iconbitmap("assets\icons\icon.ico")
         self.geometry("1280x850+350+100")
         self.resizable(False, False)
 
+        # Monta a tabela do agendamento no banco de dados
         self.monta_tabela_agendamentos()
 
         # Frame
         self.frame_agendar_consulta()
         # TabView
         self.tabview_agendar_consulta()
-        # Widgets
+        # Widgets do agendamento
         self.widget_agendar_consulta()
-
+        # Widgets de busca
         self.widget_consultar_agendamento()
 
     def frame_agendar_consulta(self):
@@ -894,21 +896,22 @@ class ConsultaWindow(CTkToplevel):
                                                        text_color=self.black,
                                                        fg_color=self.white).place(x=754, y=50)
         self.cb_genero_agendamento_paciente = CTkComboBox(self.tb_agendar_consulta,
-                                     width=160,
-                                     height=40,
-                                     font=("Calibri", 16),
-                                     dropdown_font=('Calibri', 16),
-                                     dropdown_text_color=self.black,
-                                     text_color=self.black,
-                                     border_width=1,
-                                     border_color=self.black,
-                                     fg_color=self.white,
-                                     button_hover_color=self.dark_blue,
-                                     button_color=self.blue,
-                                     dropdown_fg_color=self.white,
-                                     dropdown_hover_color=self.blue_light_2,
-                                     justify='left',
-                                     values=('null', 'Masculino', 'Feminino'))
+                                                          width=160,
+                                                          height=40,
+                                                          font=("Calibri", 16),
+                                                          dropdown_font=(
+                                                              'Calibri', 16),
+                                                          dropdown_text_color=self.black,
+                                                          text_color=self.black,
+                                                          border_width=1,
+                                                          border_color=self.black,
+                                                          fg_color=self.white,
+                                                          button_hover_color=self.dark_blue,
+                                                          button_color=self.blue,
+                                                          dropdown_fg_color=self.white,
+                                                          dropdown_hover_color=self.blue_light_2,
+                                                          justify='left',
+                                                          values=('null', 'Masculino', 'Feminino'))
         self.cb_genero_agendamento_paciente.place(x=754, y=80)
 
         # Label e Entry Endereço
@@ -1320,7 +1323,8 @@ class ConsultaWindow(CTkToplevel):
                                                width=126,
                                                height=48,
                                                fg_color=self.blue,
-                                               hover_color=self.dark_blue
+                                               hover_color=self.dark_blue,
+                                               command=self.busca_agendamento
                                                ).place(x=1092, y=72)
 
         # Resultado da busca
@@ -1338,13 +1342,19 @@ class ConsultaWindow(CTkToplevel):
                                               font=('Calibri', 18, 'bold'),
                                               text_color=self.black).place(x=10, y=150)
 
-        self.scroll_treeview = ttk.Scrollbar(self.tb_consultar_agendamento)
-        self.scroll_treeview.place(x=1200, y=190, width=20, height=460)
+        self.scroll_treeview = ttk.Scrollbar(self.tb_consultar_agendamento,
+                                             orient=VERTICAL,)
+        self.scroll_treeview.place(x=1200, y=190, width=24, height=460)
 
         self.lista_resultado_agendamento = ttk.Treeview(self.tb_consultar_agendamento, height=3, columns=(
             'col1', 'col2', 'col3', 'col4', 'col5', 'col6', 'col7', 'col8', 'col9',), yscrollcommand=self.scroll_treeview, selectmode='browse')
         self.lista_resultado_agendamento.place(
             x=20, y=190, width=1178, height=460)
+
+        self.lista_resultado_agendamento.configure(
+            yscrollcommand=self.scroll_treeview.set)
+        self.scroll_treeview.configure(
+            command=self.lista_resultado_agendamento.yview)
 
         self.lista_resultado_agendamento.heading('#0', text='')
         self.lista_resultado_agendamento.heading('#1', text='Agend.')
@@ -1367,15 +1377,6 @@ class ConsultaWindow(CTkToplevel):
         self.lista_resultado_agendamento.column('#7', width=70)
         self.lista_resultado_agendamento.column('#8', width=50)
         self.lista_resultado_agendamento.column('#9', width=200)
-
-        self.lista_resultado_agendamento.insert(parent='', index="end", text='', values=(
-            '1', '000.000.000.-71', 'Alex Souza', '7198823-4398', 'Marcelo Zcard', 'Ortopedista', '01/02/2025', '14:00', ''))
-
-        self.lista_resultado_agendamento.insert(parent='', index="end", text='', values=(
-            '2', '000.000.000.-71', 'Thales Silva', '7198823-4398', 'Luzia Mendes', 'Nutricionista', '01/02/2025', '13:00', ''))
-
-        self.lista_resultado_agendamento.insert(parent='', index="end", text='', values=(
-            '3', '000.000.000.-71', 'Orlando Blun', '7198823-4398', 'Fernando Lima', 'Dermatologista', '02/02/2025', '08:00', ''))
 
     def limpar_buscar_agendamento(self):
         self.entry_numero_agendamento_busca.delete(0, END)
@@ -1467,10 +1468,79 @@ class ConsultaWindow(CTkToplevel):
 
         self.conecta_bd()
         self.cursor.execute(""" INSERT INTO agendamentos (cpf, nome, data_nascimento, genero, endereco, numero, bairro, cidade, email, celular, telefone, medico, especialidade_um, especialidade_dois, data_agendamento, hora_agendamento, observacao)
-                                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (cpf_paciente_agendamento, nome_paciente_agendamento, data_nascimento_paciente_agendamento, genero_paciente_agendamento,endereco_paciente_agendamento, numero_paciente_agendamento, bairro_paciente_agendamento, cidade_paciente_agendamento, email_paciente_agendamento, celular_paciente_agendamento, telefone_paciente_agendamento, nome_medico_agendamento, especialidade1_medico_agendamento, especialidade2_medico_agendamento, data_agendamento, hora_agendamento, observacao_agendamento))
+                                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", (cpf_paciente_agendamento, nome_paciente_agendamento, data_nascimento_paciente_agendamento, genero_paciente_agendamento, endereco_paciente_agendamento, numero_paciente_agendamento, bairro_paciente_agendamento, cidade_paciente_agendamento, email_paciente_agendamento, celular_paciente_agendamento, telefone_paciente_agendamento, nome_medico_agendamento, especialidade1_medico_agendamento, especialidade2_medico_agendamento, data_agendamento, hora_agendamento, observacao_agendamento))
         self.conn.commit()
         self.desconecta_bd()
-        print(f'Consultado do paciente {nome_paciente_agendamento} com o Dr. {nome_medico_agendamento}, foi agendada com sucesso!')
+        self.limpar_agendamento()
+        print(
+            f'Consultado do paciente {nome_paciente_agendamento} com o Dr. {nome_medico_agendamento}, foi agendada com sucesso!')
+
+    def busca_agendamento(self):
+
+        self.conecta_bd()
+        self.lista_resultado_agendamento.delete(
+            *self.lista_resultado_agendamento.get_children())
+
+        self.entry_nome_agendamento_paciente_busca.insert(END, '%')
+        agendamento = self.entry_numero_agendamento_busca.get()
+        cpf = self.entry_cpf_agendamento_busca.get()
+        nome = self.entry_nome_agendamento_paciente_busca.get()
+
+        # Quando todos os campos estão preenchidos
+        if len(agendamento) > 1 and len(cpf) > 1 and len(nome) > 1:
+            self.cursor.execute("""
+                                SELECT cod, cpf, nome, celular, medico, especialidade_um, data_agendamento, hora_agendamento, observacao
+                                FROM agendamentos
+                                WHERE cod LIKE '%s' OR cpf LIKE '%s' OR nome LIKE '%s'
+                                ORDER BY nome ASC
+                                """ % (agendamento, cpf, nome))
+        # Quando os campos CPF e Nome estão preenchidos
+        elif len(agendamento) < 1 and len(cpf) > 1 and len(nome) > 1:
+            self.cursor.execute("""
+                                SELECT cod, cpf, nome, celular, medico, especialidade_um, data_agendamento, hora_agendamento, observacao
+                                FROM agendamentos
+                                WHERE cpf LIKE '%s' OR nome LIKE '%s'
+                                ORDER BY nome ASC
+                                """ % (cpf, nome))
+        # Quando os campos Agendamento e Nome estão preenchidos
+        elif len(agendamento) > 1 and len(cpf) < 1 and len(nome) > 1:
+            self.cursor.execute("""
+                                SELECT cod, cpf, nome, celular, medico, especialidade_um, data_agendamento, hora_agendamento, observacao
+                                FROM agendamentos
+                                WHERE cod LIKE '%s' OR nome LIKE '%s'
+                                ORDER BY nome ASC
+                                """ % (agendamento, nome))
+        # Quando os campos Agendamento e CPF estão preenchidos
+        elif len(agendamento) > 1 and len(cpf) > 1 and len(nome) < 1:
+            self.cursor.execute("""
+                                SELECT cod, cpf, nome, celular, medico, especialidade_um, data_agendamento, hora_agendamento, observacao
+                                FROM agendamentos
+                                WHERE cod LIKE '%s' AND cpf LIKE '%s'
+                                ORDER BY nome ASC
+                                """ % (agendamento, cpf))
+        # Quando apenas o campo Agendamento esta preenchido
+        elif len(agendamento) > 1 and len(cpf) < 1 and len(nome) < 1:
+            self.cursor.execute(""" SELECT cod, cpf, nome, celular, medico, especialidade_um, data_agendamento, hora_agendamento, observacao FROM agendamentos
+                                WHERE cod LIKE '%s' ORDER BY nome ASC""" % agendamento)
+        # Quando apenas o campo CPF esta preenchido
+        elif len(agendamento) < 1 and len(cpf) > 1 and len(nome) < 1:
+            self.cursor.execute(""" SELECT cod, cpf, nome, celular, medico, especialidade_um, data_agendamento, hora_agendamento, observacao FROM agendamentos
+                                WHERE cpf LIKE '%s' ORDER BY nome ASC""" % cpf)
+        # Quando apenas o campo Nome esta preenchido
+        elif len(agendamento) < 1 and len(cpf) < 1 and len(nome) > 1:
+            self.cursor.execute(""" SELECT cod, cpf, nome, celular, medico, especialidade_um, data_agendamento, hora_agendamento, observacao FROM agendamentos
+                                WHERE nome LIKE '%s' ORDER BY nome ASC""" % nome)
+        # Quando todos os campos estão vazios
+        elif len(agendamento) <= 1 and len(cpf) <= 1 and len(nome) <= 1:
+            self.cursor.execute(""" SELECT cod, cpf, nome, celular, medico, especialidade_um, data_agendamento, hora_agendamento, observacao FROM agendamentos
+                                WHERE nome LIKE '%s' ORDER BY nome ASC""" % "%")
+
+        busca_lista = self.cursor.fetchall()
+        for i in busca_lista:
+            self.lista_resultado_agendamento.insert("", END, values=i)
+
+        self.limpar_buscar_agendamento()
+        self.desconecta_bd()
 
 
 if __name__ == '__main__':
