@@ -5,6 +5,7 @@ from tkinter import ttk
 import sqlite3
 from PIL import Image
 
+nome_medico = ''
 
 class MainWindow(CTk):
     def __init__(self):
@@ -23,7 +24,6 @@ class MainWindow(CTk):
         self.title("Bem-Vindo!")
         self._set_appearance_mode("light")
         self.configure(fg_color='#fff')
-        self.iconbitmap("assets\icons\icon.ico")
         self.geometry("1000x500+500+200")
         self.resizable(False, False)
 
@@ -131,7 +131,6 @@ class CadastroWindow(CTkToplevel):
 
         # Configuração da Janela
         self.configure(fg_color="#fff")
-        self.iconbitmap(default="assets\icons\icon.ico")
         self.title("Novo Cadastro")
         self.geometry("750x780+600+100")
         self.resizable(False, False)
@@ -757,7 +756,6 @@ class ConsultaWindow(CTkToplevel):
         # Configuração da Janela
         self.configure(fg_color="#fff")
         self.title("Agendamento de Consultas")
-        self.iconbitmap("assets\icons\icon.ico")
         self.geometry("1280x850+350+100")
         self.resizable(False, False)
 
@@ -772,7 +770,7 @@ class ConsultaWindow(CTkToplevel):
         self.widget_agendar_consulta()
         # Widgets de busca
         self.widget_consultar_agendamento()
-
+        
     def frame_agendar_consulta(self):
         # Banner
         self.frame_bane_consulta = CTkFrame(self,
@@ -1052,22 +1050,25 @@ class ConsultaWindow(CTkToplevel):
                                         corner_radius=6,
                                         text_color=self.black).place(x=2, y=230)
 
-        # Label e Entry CRM
-        self.lb_crm_agendamento_medico = CTkLabel(self.tb_agendar_consulta,
-                                                  text="CRM",
-                                                  font=(
-                                                      "Calibri", 16),
-                                                  text_color=self.black,
-                                                  fg_color=self.white).place(x=24, y=270)
-        self.entry_crm_agendamento_medico = CTkEntry(self.tb_agendar_consulta,
-                                                     width=150,
-                                                     height=40,
-                                                     border_width=1,
-                                                     border_color=self.black,
-                                                     fg_color=self.gray_light,
-                                                     font=("Calibri", 16),
-                                                     text_color=self.black)
-        self.entry_crm_agendamento_medico.place(x=24, y=300)
+        self.lb_buscar_medico = CTkLabel(self.tb_agendar_consulta,
+                                         text="Buscar médico",
+                                         font=(
+                                             "Calibri", 16),
+                                         text_color=self.black,
+                                         fg_color=self.white).place(x=24, y=270)
+        # Botão de Limpar
+        self.bt_buscar_medico = CTkButton(self.tb_agendar_consulta,
+                                          text="Buscar",
+                                          text_color=self.white,
+                                          font=(
+                                              "Calibri", 16, "bold"),
+                                          width=148,
+                                          height=40,
+                                          fg_color=self.blue,
+                                          hover_color=self.dark_blue,
+                                          border_width=2,
+                                          border_color=self.blue,
+                                          command=self.open_buscar_medico).place(x=24, y=300)
 
         # Label e Entry Médico
         self.lb_nome_agendamento_medico = CTkLabel(self.tb_agendar_consulta,
@@ -1521,11 +1522,11 @@ class ConsultaWindow(CTkToplevel):
         # Quando apenas o campo Agendamento esta preenchido
         elif len(agendamento) > 1 and len(cpf) < 1 and len(nome) < 1:
             self.cursor.execute(""" SELECT cod, cpf, nome, celular, medico, especialidade_um, data_agendamento, hora_agendamento, observacao FROM agendamentos
-                                WHERE cod LIKE '%s' ORDER BY nome ASC""" % agendamento)
+                                WHERE cod LIKE '%s' ORDER BY cod ASC""" % agendamento)
         # Quando apenas o campo CPF esta preenchido
         elif len(agendamento) < 1 and len(cpf) > 1 and len(nome) < 1:
             self.cursor.execute(""" SELECT cod, cpf, nome, celular, medico, especialidade_um, data_agendamento, hora_agendamento, observacao FROM agendamentos
-                                WHERE cpf LIKE '%s' ORDER BY nome ASC""" % cpf)
+                                WHERE cpf LIKE '%s' ORDER BY cpf ASC""" % cpf)
         # Quando apenas o campo Nome esta preenchido
         elif len(agendamento) < 1 and len(cpf) < 1 and len(nome) > 1:
             self.cursor.execute(""" SELECT cod, cpf, nome, celular, medico, especialidade_um, data_agendamento, hora_agendamento, observacao FROM agendamentos
@@ -1542,8 +1543,192 @@ class ConsultaWindow(CTkToplevel):
         self.limpar_buscar_agendamento()
         self.desconecta_bd()
 
+    def open_buscar_medico(self):
+        BuscarMedico(self).grab_set()
+
+
+class BuscarMedico(CTkToplevel):
+    def __init__(self, parent):
+        super().__init__(parent)
+        # Paleta de cores
+        self.dark_blue = "#0057A7"
+        self.blue = "#0076E3"
+        self.blue_light_1 = "#A5D4FF"
+        self.blue_light_2 = "#DAEDFF"
+        self.white = "#FFFFFF"
+        self.gray = "#BCBCBC"
+        self.gray_light = "#F0F0F0"
+        self.black = "#000000"
+
+        self.title("Buscar Médico")
+        self.configure(fg_color='#fff')
+        self.geometry("900x600")
+        self.resizable(False, False)
+        
+        # Dados de Busca
+        # Frame dos dados d médico
+        self.frame_buscar_medico = CTkFrame(self,
+                                            width=880,
+                                            height=100,
+                                            fg_color=self.blue_light_2,
+                                            border_color=self.blue_light_1,
+                                            border_width=3).place(x=10, y=42)
+        self.lb_buscar_medico = CTkLabel(self,
+                                         width=160,
+                                         text='Dados de Busca',
+                                         font=('Calibri', 18, 'bold'),
+                                         corner_radius=6,
+                                         text_color=self.black).place(x=0, y=12)
+
+        # Labels e Entrys
+        # Label e Entry Nome medico
+        self.lb_nome_buscar_medico = CTkLabel(self,
+                                              text="Nome do médico",
+                                              font=(
+                                                  "Calibri", 16),
+                                              text_color=self.black,
+                                              fg_color=self.blue_light_2).place(x=24, y=50)
+        self.entry_nome_buscar_medico = CTkEntry(self,
+                                                 width=370,
+                                                 height=40,
+                                                 border_width=1,
+                                                 border_color=self.black,
+                                                 fg_color=self.gray_light,
+                                                 font=("Calibri", 16),
+                                                 text_color=self.black)
+        self.entry_nome_buscar_medico.place(x=24, y=80)
+
+        # Botões
+        # Botão de Limpar
+        self.bt_limpar_buscar_medico = CTkButton(self,
+                                                 text="Limpar",
+                                                 text_color=self.blue,
+                                                 font=(
+                                                     "Calibri", 16, "bold"),
+                                                 width=126,
+                                                 height=48,
+                                                 fg_color=self.white,
+                                                 hover_color=self.blue_light_2,
+                                                 border_width=2,
+                                                 border_color=self.blue,
+                                                 command=self.limpar_buscar_medico).place(x=600, y=72)
+        # Botão de Buscar
+        self.bt_buscar_medico = CTkButton(self,
+                                          text="Buscar",
+                                          text_color=self.white,
+                                          font=("Calibri", 16, "bold"),
+                                          width=126,
+                                          height=48,
+                                          fg_color=self.blue,
+                                          hover_color=self.dark_blue,
+                                          command=self.buscar_medico
+                                          ).place(x=748, y=72)
+
+        # Resultado da busca
+        # Frame dos resultados de busca
+        self.frame_buscar_resultados = CTkFrame(self,
+                                                width=880,
+                                                height=410,
+                                                fg_color=self.white,
+                                                border_color=self.blue_light_1,
+                                                border_width=3).place(x=10, y=180)
+
+        self.lb_buscar_resultados = CTkLabel(self,
+                                             width=160,
+                                             text='Resultado da Busca',
+                                             font=('Calibri', 18, 'bold'),
+                                             text_color=self.black).place(x=10, y=150)
+
+        self.scroll_treeview_buscar = ttk.Scrollbar(self,
+                                             orient=VERTICAL,)
+        self.scroll_treeview_buscar.place(x=850, y=190, width=24, height=390)
+
+        self.lista_resultado_medicos = ttk.Treeview(self,
+                                                    height=3,
+                                                    columns=(
+                                                        'col1', 'col2', 'col3', 'col4', 'col5', 'col6', 'col7'),
+                                                    yscrollcommand=self.scroll_treeview_buscar)
+        self.lista_resultado_medicos.place(x=20,
+                                           y=190,
+                                           width=830,
+                                           height=390)
+
+        self.lista_resultado_medicos.configure(
+            yscrollcommand=self.scroll_treeview_buscar.set)
+        self.scroll_treeview_buscar.configure(
+            command=self.lista_resultado_medicos.yview)
+
+        self.lista_resultado_medicos.heading('#0', text='')
+        self.lista_resultado_medicos.heading('#1', text='Código')
+        self.lista_resultado_medicos.heading('#2', text='Nome')
+        self.lista_resultado_medicos.heading('#3', text='CRM')
+        self.lista_resultado_medicos.heading('#4', text='Especialidade 1')
+        self.lista_resultado_medicos.heading('#5', text='Especialidade 2')
+        self.lista_resultado_medicos.heading('#6', text='E-mail')
+        self.lista_resultado_medicos.heading('#7', text='Celular')
+
+        self.lista_resultado_medicos.column('#0', width=1)
+        self.lista_resultado_medicos.column('#1', width=50)
+        self.lista_resultado_medicos.column('#2', width=200)
+        self.lista_resultado_medicos.column('#3', width=50)
+        self.lista_resultado_medicos.column('#4', width=120)
+        self.lista_resultado_medicos.column('#5', width=120)
+        self.lista_resultado_medicos.column('#6', width=150)
+        self.lista_resultado_medicos.column('#7', width=140)
+        
+        self.lista_resultado_medicos.bind('<Double-1>', self.seleciona_medico)
+    
+    def limpar_buscar_medico(self):
+        self.entry_nome_buscar_medico.delete(0, END)
+
+    def conecta_bd(self):
+        self.conn = sqlite3.connect('banco_dados.bd')
+        self.cursor = self.conn.cursor()
+        print('Conectado ao banco de dados.')
+
+    def desconecta_bd(self):
+        self.conn.close()
+        print('Desconectado do banco de dados.')
+
+    def buscar_medico(self):
+
+        self.conecta_bd()
+        self.lista_resultado_medicos.delete(
+            *self.lista_resultado_medicos.get_children())
+        
+        self.entry_nome_buscar_medico.insert(END, '%')
+        medico = self.entry_nome_buscar_medico.get()
+        
+        nome_medico
+
+        self.cursor.execute(""" SELECT cod, nome, crm, especialidade1, especialidade2, email, celular FROM medicos
+                                WHERE nome LIKE '%s' ORDER BY nome ASC""" %medico)
+
+        busca_lista_medico = self.cursor.fetchall()
+        for i in busca_lista_medico:
+            self.lista_resultado_medicos.insert("", END, values=i)
+
+        self.limpar_buscar_medico()
+        self.desconecta_bd()
+
+    def seleciona_medico(self, event):
+        
+        # instanciando a class ConsultaWindow
+        nome = ConsultaWindow(self).entry_nome_agendamento_medico
+        especialidade1 = ConsultaWindow(self).entry_especialidade1_agendamento_medico
+        especialidade2 = ConsultaWindow(self).entry_especialidade2_agendamento_medico
+
+        
+        select_lista = self.lista_resultado_medicos.selection()
+        
+        for i in select_lista:
+            col1, col2, col3, col4, col5, col6, col7 = self.lista_resultado_medicos.item(i, 'values')
+            
+        nome.insert(END, col2)
+        especialidade1.insert(END, col4)
+        self.especialidade2.insert(END, col5)
+        
 
 if __name__ == '__main__':
     app = MainWindow()
-
     app.mainloop()
