@@ -10,7 +10,7 @@ class MainWindow(CTk):
         super().__init__()
         # Paleta de cores
         self.dark_blue = "#0057A7"
-        self.blue = "#0076E3"
+        self.blue = "#0076E3"F
         self.blue_light_1 = "#A5D4FF"
         self.blue_light_2 = "#DAEDFF"
         self.white = "#FFFFFF"
