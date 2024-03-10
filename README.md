@@ -11,16 +11,16 @@ eficiente para clínicas e consultórios, permitindo o gerenciamento fácil e or
 </br>
 
 <div align="center">
-  <img src="https://github.com/alexxsouzaa/PyMediAgenda/assets/132787362/32d36a35-bb1b-4586-aed0-af56cdb4262e" alt="PyMediAgenda">
+  <img src="https://github.com/alexxsouzaa/PyMediAgenda/assets/132787362/c6074e3d-09fc-4d5a-858f-7f3b73d00ab8" alt="Tela de login">
+</div>
+
+> Tela de login
+
+<div align="center">
+  <img src="https://github.com/alexxsouzaa/PyMediAgenda/assets/132787362/4e586f85-218e-4806-aec6-5ecc19b429f0" alt="Tela inicial">
 </div>
 
 > Tela inicial
-
-<div align="center">
-  <img src="https://github.com/alexxsouzaa/PyMediAgenda/assets/132787362/7b537de2-30b3-489a-a1c0-d47d4246d6fb" alt="Tela de Agendamento">
-</div>
-
-> Tela de agendamento
 
 ## Recursos Principais:
 
@@ -35,10 +35,4 @@ eficiente para clínicas e consultórios, permitindo o gerenciamento fácil e or
 * Python
 * SQLite (ou outro banco de dados à sua escolha)
 * Tkinter e CustomTkinter (para a interface gráfica)
-
-## Vídeo demonstrativo
-
-https://github.com/alexxsouzaa/PyMediAgenda/assets/132787362/28f13b34-00fc-431d-80fd-83cbfea13f86
-
-> Demonstração da tela de agendamento
 
