@@ -33,6 +33,6 @@ eficiente para clínicas e consultórios, permitindo o gerenciamento fácil e or
 
 ## Tecnologias Utilizadas:
 * Python
-* SQLite (ou outro banco de dados à sua escolha)
+* SQLite (para o banco de dados)
 * Tkinter e CustomTkinter (para a interface gráfica)
 
