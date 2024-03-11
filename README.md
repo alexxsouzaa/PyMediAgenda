@@ -38,4 +38,4 @@ eficiente para clínicas e consultórios, permitindo o gerenciamento fácil e or
 
 ## Vídeo de demonstração
 
-https://github.com/alexxsouzaa/PyMediAgenda/assets/132787362/d7d59700-9ed2-4f7f-b572-de903aef6faf
+https://github.com/alexxsouzaa/PyMediAgenda/assets/132787362/0f830d21-45fe-403d-af8f-48011030c0fd
