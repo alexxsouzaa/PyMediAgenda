@@ -2,6 +2,7 @@ from typing import Tuple
 from customtkinter import *
 from tkinter import *
 from tkinter import ttk
+from tkcalendar import *
 from PIL import Image, ImageTk
 import sqlite3
 
@@ -138,9 +139,9 @@ class MainWindow(CTk):
         self.bt_entrar = CTkButton(
             self,
             width=220,
-            height=32,
+            height=34,
             text='Entrar',
-            font=('Segoe UI', 14, 'bold'),
+            font=('Segoe UI', 12, 'bold'),
             text_color=self.white,
             fg_color=self.blue,
             hover_color=self.dark_blue,
@@ -208,7 +209,7 @@ class PrincipalWindow(CTkToplevel):
         # =========== Configuração da Janela ===========
         self.title("Home")  # Titulo da janela
         self.configure(fg_color=self.gray_light2)  # Cor da janela
-        self.geometry("1200x700+450+100")  # Tamanho da janela
+        self.geometry("1200x700+370+130")  # Tamanho da janela
         self.resizable(False, False)
 
         # =========== Top Bar ===========
@@ -321,8 +322,7 @@ class PrincipalWindow(CTkToplevel):
             border_color=self.gray_light,
             hover_color=self.blue_light_2,
             corner_radius=8,
-            anchor=W,
-            command=self.open_consultas
+            anchor=W
         )
         self.bt_consultas.place(x=12, y=174)
         # Botão Cadastros
@@ -341,7 +341,8 @@ class PrincipalWindow(CTkToplevel):
             border_color=self.gray_light,
             hover_color=self.blue_light_2,
             corner_radius=8,
-            anchor=W
+            anchor=W,
+            command=self.open_cadastro
         )
         self.bt_cadastro.place(x=12, y=222)
         # Botão Pacientes
@@ -616,8 +617,8 @@ class PrincipalWindow(CTkToplevel):
         # =========== Chama a função que fecha a janela ===========
         self.protocol("WM_DELETE_WINDOW", self.close_window)
 
-    def open_consultas(self):
-        self.janela_consulta = ConsultasWindow(self)
+    def open_cadastro(self):
+        self.janela_consulta = CadastroWindow(self)
         self.janela_consulta.grab_set()
 
     def close_window(self):
@@ -629,7 +630,7 @@ class PrincipalWindow(CTkToplevel):
         print('Logout')
 
 
-class ConsultasWindow(CTkToplevel):
+class CadastroWindow(CTkToplevel):
     def __init__(self, parent):
         super().__init__(parent)
         # =========== Paleta de cores ===========
@@ -650,7 +651,7 @@ class ConsultasWindow(CTkToplevel):
         # =========== Configuração da Janela ===========
         self.title("Consultas")  # Titulo da janela
         self.configure(fg_color=self.gray_light2)  # Cor da janela
-        self.geometry("1200x700+450+100")  # Tamanho da janela
+        self.geometry("1200x700+370+130")  # Tamanho da janela
         self.resizable(False, False)
 
         # =========== Top Bar ===========
@@ -730,7 +731,7 @@ class ConsultasWindow(CTkToplevel):
         self.fr_dados_paciente = CTkFrame(
             self.tab_cadastro_paciente,
             width=1117,
-            height=448,
+            height=458,
             fg_color=self.blue_light_3,
             border_color=self.blue_light_1,
             border_width=1,
@@ -800,7 +801,8 @@ class ConsultasWindow(CTkToplevel):
             fg_color=self.blue_light_1,
             bg_color=self.blue_light_3,
             hover_color=self.blue_light_2,
-            corner_radius=6
+            corner_radius=6,
+            command=self.pop_calendario
         ).place(x=634, y=72)
         # Label e Entry do CPF do paciente
         self.lb_cpf_paciente_cadastro = CTkLabel(
@@ -823,14 +825,14 @@ class ConsultasWindow(CTkToplevel):
 
         )
         self.ent_cpf_paciente_cadastro.place(x=687, y=72)
-        # Label e ComBox do CPF do paciente
-        self.lb_cpf_paciente_cadastro = CTkLabel(
+        # Label e ComBox do Sexo do paciente
+        self.lb_sexo_paciente_cadastro = CTkLabel(
             self.fr_dados_paciente,
             text='Sexo',
             text_color=self.black,
             font=('Segoe UI', 12, 'normal')
         ).place(x=913, y=46)
-        self.ent_cpf_paciente_cadastro = CTkComboBox(
+        self.cb_sexo_paciente_cadastro = CTkComboBox(
             self.fr_dados_paciente,
             width=186,
             height=32,
@@ -847,10 +849,10 @@ class ConsultasWindow(CTkToplevel):
             dropdown_font=('Segoe UI', 14, 'normal'),
             text_color=self.black,
             font=('Segoe UI', 14, 'normal'),
-            values=(['Maculino', 'Feminino', 'Não declarado'])
+            values=(['Masculino', 'Feminino', 'Não-binário', 'Agênero', 'Gênero fluido', 'Não declarado'])
 
         )
-        self.ent_cpf_paciente_cadastro.place(x=913, y=72)
+        self.cb_sexo_paciente_cadastro.place(x=913, y=72)
 
         # Dados de Endereço do Paciente
         # Endereço
@@ -901,6 +903,325 @@ class ConsultasWindow(CTkToplevel):
             font=('Segoe UI', 14, 'normal')
         )
         self.ent_endereco_paciente_cadastro.place(x=232, y=176)
+        # Label e Entry do Bairro do paciente
+        self.lb_bairro_paciente_cadastro = CTkLabel(
+            self.fr_dados_paciente,
+            text='Bairro',
+            text_color=self.black,
+            font=('Segoe UI', 12, 'normal')
+        ).place(x=16, y=212)
+        self.ent_bairro_paciente_cadastro = CTkEntry(
+            self.fr_dados_paciente,
+            width=373,
+            height=32,
+            fg_color=self.white,
+            bg_color=self.blue_light_2,
+            corner_radius=6,
+            border_color=self.black,
+            border_width=1,
+            text_color=self.black,
+            font=('Segoe UI', 14, 'normal')
+        )
+        self.ent_bairro_paciente_cadastro.place(x=16, y=238)
+        # Label e Entry do Cidade do paciente
+        self.lb_cidade_paciente_cadastro = CTkLabel(
+            self.fr_dados_paciente,
+            text='Cidade',
+            text_color=self.black,
+            font=('Segoe UI', 12, 'normal')
+        ).place(x=405, y=212)
+        self.ent_cidade_paciente_cadastro = CTkEntry(
+            self.fr_dados_paciente,
+            width=357,
+            height=32,
+            fg_color=self.white,
+            bg_color=self.blue_light_2,
+            corner_radius=6,
+            border_color=self.black,
+            border_width=1,
+            text_color=self.black,
+            font=('Segoe UI', 14, 'normal')
+        )
+        self.ent_cidade_paciente_cadastro.place(x=405, y=238)
+        # Label e Entry do Cidade do paciente
+        self.lb_estado_paciente_cadastro = CTkLabel(
+            self.fr_dados_paciente,
+            text='Estado',
+            text_color=self.black,
+            font=('Segoe UI', 12, 'normal')
+        ).place(x=778, y=212)
+        self.ent_estado_paciente_cadastro = CTkEntry(
+            self.fr_dados_paciente,
+            width=320,
+            height=32,
+            fg_color=self.white,
+            bg_color=self.blue_light_2,
+            corner_radius=6,
+            border_color=self.black,
+            border_width=1,
+            text_color=self.black,
+            font=('Segoe UI', 14, 'normal')
+        )
+        self.ent_estado_paciente_cadastro.place(x=778, y=238)
+
+        # Dados de Contato do
+        # Contatos
+        self.lb_campos_endereco = CTkLabel(
+            self.fr_dados_paciente,
+            text='CONTATOS',
+            text_color=self.black,
+            font=('Segoe UI', 14, 'bold'),
+            height=12
+        ).place(x=16, y=292)
+        # Label e Entry do Email do paciente
+        self.lb_email_paciente_cadastro = CTkLabel(
+            self.fr_dados_paciente,
+            text='E-Mail',
+            text_color=self.black,
+            font=('Segoe UI', 12, 'normal')
+        ).place(x=16, y=316)
+        self.ent_email_paciente_cadastro = CTkEntry(
+            self.fr_dados_paciente,
+            width=341,
+            height=32,
+            fg_color=self.white,
+            bg_color=self.blue_light_2,
+            corner_radius=6,
+            border_color=self.black,
+            border_width=1,
+            text_color=self.black,
+            font=('Segoe UI', 14, 'normal')
+        )
+        self.ent_email_paciente_cadastro.place(x=16, y=342)
+        # Label e Entry do Observação do Email do paciente
+        self.lb_observacao_email_paciente_cadastro = CTkLabel(
+            self.fr_dados_paciente,
+            text='Observação',
+            text_color=self.black,
+            font=('Segoe UI', 12, 'normal')
+        ).place(x=373, y=316)
+        self.ent_observacao_email_paciente_cadastro = CTkEntry(
+            self.fr_dados_paciente,
+            width=726,
+            height=32,
+            fg_color=self.white,
+            bg_color=self.blue_light_2,
+            corner_radius=6,
+            border_color=self.black,
+            border_width=1,
+            text_color=self.black,
+            font=('Segoe UI', 14, 'normal')
+        )
+        self.ent_observacao_email_paciente_cadastro.place(x=373, y=342)
+        # Label e ComBox do Celular/Telefone do paciente
+        self.lb_celular_paciente_cadastro = CTkLabel(
+            self.fr_dados_paciente,
+            text='Celular/Telefone',
+            text_color=self.black,
+            font=('Segoe UI', 12, 'normal')
+        ).place(x=16, y=380)
+        self.cb_celular_paciente_cadastro = CTkComboBox(
+            self.fr_dados_paciente,
+            width=228,
+            height=32,
+            fg_color=self.white,
+            bg_color=self.blue_light_2,
+            corner_radius=6,
+            border_color=self.black,
+            border_width=1,
+            button_color=self.blue,
+            button_hover_color=self.dark_blue,
+            dropdown_fg_color=self.white,
+            dropdown_hover_color=self.blue_light_2,
+            dropdown_text_color=self.black,
+            dropdown_font=('Segoe UI', 14, 'normal'),
+            text_color=self.black,
+            font=('Segoe UI', 14, 'normal'),
+            values=(['Celular', 'Celular/WhatsApp', 'Telefone'])
+        )
+        self.cb_celular_paciente_cadastro.place(x=16, y=406)
+        # Label e ComBox do Topo de contato do paciente
+        self.lb_celular_paciente_cadastro = CTkLabel(
+            self.fr_dados_paciente,
+            text='Tipo de contato',
+            text_color=self.black,
+            font=('Segoe UI', 12, 'normal')
+        ).place(x=262, y=380)
+        self.cb_celular_paciente_cadastro = CTkComboBox(
+            self.fr_dados_paciente,
+            width=228,
+            height=32,
+            fg_color=self.white,
+            bg_color=self.blue_light_2,
+            corner_radius=6,
+            border_color=self.black,
+            border_width=1,
+            button_color=self.blue,
+            button_hover_color=self.dark_blue,
+            dropdown_fg_color=self.white,
+            dropdown_hover_color=self.blue_light_2,
+            dropdown_text_color=self.black,
+            dropdown_font=('Segoe UI', 14, 'normal'),
+            text_color=self.black,
+            font=('Segoe UI', 14, 'normal'),
+            values=(['Pessoal', 'Residencial', 'Comercial'])
+        )
+        self.cb_celular_paciente_cadastro.place(x=262, y=406)
+        # Label e Entry do Número do paciente
+        self.lb_celular_paciente_cadastro = CTkLabel(
+            self.fr_dados_paciente,
+            text='Número',
+            text_color=self.black,
+            font=('Segoe UI', 12, 'normal')
+        ).place(x=508, y=380)
+        self.ent_celular_paciente_cadastro = CTkEntry(
+            self.fr_dados_paciente,
+            width=200,
+            height=32,
+            fg_color=self.white,
+            bg_color=self.blue_light_2,
+            corner_radius=6,
+            border_color=self.black,
+            border_width=1,
+            text_color=self.black,
+            font=('Segoe UI', 14, 'normal'),
+            placeholder_text='Ex. 7190000-0000'
+        )
+        self.ent_celular_paciente_cadastro.place(x=508, y=406)
+        # Label e Entry da Observação do Número do paciente
+        self.lb_obsevacao_celular_paciente_cadastro = CTkLabel(
+            self.fr_dados_paciente,
+            text='Observação',
+            text_color=self.black,
+            font=('Segoe UI', 12, 'normal')
+        ).place(x=724, y=380)
+        self.ent_obsevacao_celular_paciente_cadastro = CTkEntry(
+            self.fr_dados_paciente,
+            width=376,
+            height=32,
+            fg_color=self.white,
+            bg_color=self.blue_light_2,
+            corner_radius=6,
+            border_color=self.black,
+            border_width=1,
+            text_color=self.black,
+            font=('Segoe UI', 14, 'normal')
+        )
+        self.ent_obsevacao_celular_paciente_cadastro.place(x=724, y=406)
+
+        # Botões
+        # Botão Limpar
+        self.bt_cancelar_cadastro_paciente = CTkButton(
+            self,
+            width=148,
+            height=40,
+            text='Cancelar',
+            text_color=self.blue,
+            font=('Segoe UI', 12, 'bold'),
+            fg_color=self.white,
+            hover_color=self.blue_light_2,
+            border_color=self.blue,
+            border_width=1.5,
+            corner_radius=8,
+            command=self.fechar_cadastro
+        )
+        self.bt_cancelar_cadastro_paciente.place(x=58, y=610)
+        # Botão Limpar
+        self.bt_limpar_cadastro_paciente = CTkButton(
+            self,
+            width=148,
+            height=40,
+            text='Limpar',
+            text_color=self.blue,
+            font=('Segoe UI', 12, 'bold'),
+            fg_color=self.blue_light_1,
+            hover_color=self.blue_light_2,
+            corner_radius=8,
+            command=self.limpar_cadastro_paciente
+        )
+        self.bt_limpar_cadastro_paciente.place(x=820, y=610)
+        # Botão Cadastrar
+        self.bt_salvar_cadastro_paciente = CTkButton(
+            self,
+            width=148,
+            height=40,
+            text='Cadastrar',
+            text_color=self.white,
+            font=('Segoe UI', 12, 'bold'),
+            fg_color=self.blue,
+            hover_color=self.dark_blue,
+            corner_radius=8
+        )
+        self.bt_salvar_cadastro_paciente.place(x=994, y=610)
+
+    def limpar_cadastro_paciente(self):
+        self.ent_nome_paciente_cadastro.delete(0, END)
+        self.ent_nascimento_paciente_cadastro.delete(0, END)
+        self.ent_cpf_paciente_cadastro.delete(0, END)
+        self.ent_cep_paciente_cadastro.delete(0, END)
+        self.ent_endereco_paciente_cadastro.delete(0, END)
+        self.ent_bairro_paciente_cadastro.delete(0, END)
+        self.ent_cidade_paciente_cadastro.delete(0, END)
+        self.ent_estado_paciente_cadastro.delete(0, END)
+        self.ent_email_paciente_cadastro.delete(0, END)
+        self.ent_observacao_email_paciente_cadastro.delete(0, END)
+        self.ent_celular_paciente_cadastro.delete(0, END)
+        self.ent_obsevacao_celular_paciente_cadastro.delete(0, END)
+
+    def pop_calendario(self):
+        self.pop = CTkToplevel(
+            self,
+            fg_color=self.white
+        )
+        self.pop.geometry('386x287+780+350')
+        self.pop.title('Calendário')
+        self.pop.resizable(False, False)
+        self.pop.grab_set()
+        self.pop.focus_force()
+
+        self.calendario = Calendar(
+            self.pop,
+            selectmode='day',
+        )
+        self.calendario.place(x=0, y=0, width=386, height=207)
+        
+        self.bt_confirmar = CTkButton(
+            self.pop,
+            text='Confirmar',
+            text_color=self.white,
+            font=('Segoe UI', 12, 'bold'),
+            width=167,
+            height=36,
+            fg_color=self.blue,
+            hover_color=self.dark_blue,
+            command=self.get_data
+        )
+        self.bt_confirmar.place(x=18, y=231)
+        self.bt_cancelar = CTkButton(
+            self.pop,
+            text='Cancelar',
+            text_color=self.blue,
+            font=('Segoe UI', 12, 'bold'),
+            width=167,
+            height=36,
+            fg_color=self.blue_light_1,
+            hover_color=self.blue_light_2,
+            command=self.fecha_calendario
+        )
+        self.bt_cancelar.place(x=201, y=231)
+
+    def get_data(self):
+        self.ent_nascimento_paciente_cadastro.delete(0, END)
+        data_nascimento = self.calendario.get_date()
+        self.ent_nascimento_paciente_cadastro.insert(END, data_nascimento)
+        self.pop.destroy()
+    
+    def fecha_calendario(self):
+        self.pop.destroy()
+
+    def fechar_cadastro(self):
+        self.destroy()
+
 
 
 if __name__ == '__main__':
