@@ -36,3 +36,6 @@ eficiente para clínicas e consultórios, permitindo o gerenciamento fácil e or
 * SQLite (para o banco de dados)
 * Tkinter e CustomTkinter (para a interface gráfica)
 
+## Vídeo de demonstração
+
+https://github.com/alexxsouzaa/PyMediAgenda/assets/132787362/0f830d21-45fe-403d-af8f-48011030c0fd
