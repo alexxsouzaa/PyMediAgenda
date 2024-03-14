@@ -30,6 +30,9 @@ class MainWindow(CTk):
         self.geometry("900x500+500+200")
         self.resizable(False, False)
 
+        # =========== Monta a tabela de usuários do sistema ===========
+        self.monta_tabela_usuario()
+
         # =========== Images, Background e Logo ===========
         # Background
         self.bg_img = CTkImage(
@@ -161,13 +164,20 @@ class MainWindow(CTk):
         ).place(x=648, y=456)
 
     def login(self):
-        __usuario_admin = ['admin', '']
-        __senha_admin = ['admin', '']
 
-        __usuario = self.entry_usuario.get()
-        __senha = self.entry_senha.get()
+        self.conecta_bd()
+        self.__usuario = self.entry_usuario.get()
+        self.__senha = self.entry_senha.get()
 
-        if __usuario in __usuario_admin and __senha in __senha_admin:
+        self.cursor.execute("""
+                                SELECT usuario, senha FROM usuarios
+                                WHERE usuario = ? AND senha = ?
+                            """, (self.__usuario, self.__senha))
+
+        self.__resultado = self.cursor.fetchall()
+        print(self.__resultado)
+
+        if self.__resultado:
             print('Login efetuado com sucesso!')
             # Limpa as entrys de login
             self.entry_usuario.delete(0, END)
@@ -178,16 +188,47 @@ class MainWindow(CTk):
             PrincipalWindow(self)
         else:
             print('Usuário ou senha incorreta!')
+            # Muda as cores do entry de usuario e senha
             self.entry_usuario.configure(fg_color=self.red_light, border_color=self.red,
-                                         placeholder_text='Usuário invalido', placeholder_text_color=self.red)
+                                         placeholder_text='Usuário invalido', placeholder_text_color=self.red,
+                                         text_color=self.black)
 
             self.entry_senha.configure(fg_color=self.red_light, border_color=self.red,
-                                       placeholder_text='Senha invalida', placeholder_text_color=self.red)
+                                       placeholder_text='Senha invalida', placeholder_text_color=self.red,
+                                       text_color=self.black, show='*')
 
             # Limpa as entrys de login
             self.entry_usuario.delete(0, END)
             self.entry_senha.delete(0, END)
 
+    def conecta_bd(self):
+        self.conn = sqlite3.connect('usuarios.bd')
+        self.cursor = self.conn.cursor()
+        print('Conectado ao banco de dados')
+
+    def desconecta_bd(self):
+        self.conn.close()
+        print('Desconectado do banco de dados')
+
+    def monta_tabela_usuario(self):
+        self.conecta_bd()
+        self.cursor.execute(""" 
+                            CREATE TABLE IF NOT EXISTS usuarios (
+                                id_usuario INTEGER PRIMARY KEY,
+                                usuario TEXT NOT NULL,
+                                senha TEXT NOT NULL,
+                                nivel TEXT NOT NULL
+                            );
+                        """)
+        self.conn.commit()
+        self.desconecta_bd()
+
+    def cadastro_usuario(self):
+        self.conecta_bd()
+        self.cursor.execute(""" INSERT INTO usuarios (usuario, senha, nivel)
+                                VALUES(?, ?, ?)""", (self.entry_usuario.get(), self.entry_usuario.get(), 'Admin'))
+        self.conn.commit()
+        self.desconecta_bd()
 
 class PrincipalWindow(CTkToplevel):
     def __init__(self, parent):
@@ -628,6 +669,7 @@ class PrincipalWindow(CTkToplevel):
 
     def logout(self):
         print('Logout')
+        MainWindow(self)
 
 
 class CadastroWindow(CTkToplevel):
@@ -849,7 +891,8 @@ class CadastroWindow(CTkToplevel):
             dropdown_font=('Segoe UI', 14, 'normal'),
             text_color=self.black,
             font=('Segoe UI', 14, 'normal'),
-            values=(['Masculino', 'Feminino', 'Não-binário', 'Agênero', 'Gênero fluido', 'Não declarado'])
+            values=(['Masculino', 'Feminino', 'Não-binário',
+                    'Agênero', 'Gênero fluido', 'Não declarado'])
 
         )
         self.cb_sexo_paciente_cadastro.place(x=913, y=72)
@@ -1112,7 +1155,7 @@ class CadastroWindow(CTkToplevel):
         # Botões
         # Botão Limpar
         self.bt_cancelar_cadastro_paciente = CTkButton(
-            self,
+            self.tab_cadastro_paciente,
             width=148,
             height=40,
             text='Cancelar',
@@ -1125,10 +1168,10 @@ class CadastroWindow(CTkToplevel):
             corner_radius=8,
             command=self.fechar_cadastro
         )
-        self.bt_cancelar_cadastro_paciente.place(x=58, y=610)
+        self.bt_cancelar_cadastro_paciente.place(x=26, y=500)
         # Botão Limpar
         self.bt_limpar_cadastro_paciente = CTkButton(
-            self,
+            self.tab_cadastro_paciente,
             width=148,
             height=40,
             text='Limpar',
@@ -1139,10 +1182,10 @@ class CadastroWindow(CTkToplevel):
             corner_radius=8,
             command=self.limpar_cadastro_paciente
         )
-        self.bt_limpar_cadastro_paciente.place(x=820, y=610)
+        self.bt_limpar_cadastro_paciente.place(x=792, y=500)
         # Botão Cadastrar
         self.bt_salvar_cadastro_paciente = CTkButton(
-            self,
+            self.tab_cadastro_paciente,
             width=148,
             height=40,
             text='Cadastrar',
@@ -1152,7 +1195,7 @@ class CadastroWindow(CTkToplevel):
             hover_color=self.dark_blue,
             corner_radius=8
         )
-        self.bt_salvar_cadastro_paciente.place(x=994, y=610)
+        self.bt_salvar_cadastro_paciente.place(x=962, y=500)
 
     def limpar_cadastro_paciente(self):
         self.ent_nome_paciente_cadastro.delete(0, END)
@@ -1184,7 +1227,7 @@ class CadastroWindow(CTkToplevel):
             selectmode='day',
         )
         self.calendario.place(x=0, y=0, width=386, height=207)
-        
+
         self.bt_confirmar = CTkButton(
             self.pop,
             text='Confirmar',
@@ -1215,7 +1258,7 @@ class CadastroWindow(CTkToplevel):
         data_nascimento = self.calendario.get_date()
         self.ent_nascimento_paciente_cadastro.insert(END, data_nascimento)
         self.pop.destroy()
-    
+
     def fecha_calendario(self):
         self.pop.destroy()
 
@@ -1223,8 +1266,6 @@ class CadastroWindow(CTkToplevel):
         self.destroy()
 
 
-
 if __name__ == '__main__':
-
     app = MainWindow()
     app.mainloop()
